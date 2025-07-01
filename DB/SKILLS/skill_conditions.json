@@ -1,0 +1,35 @@
+{
+  "bashin_diff_behind": {
+    "description": "Longitudes de caballo entre tú y la uma más cercana detrás de ti.",
+    "example": "bashin_diff_behind<=1",
+    "meaning": "Hay otra uma a lo sumo a una longitud de caballo detrás de ti."
+  },
+  "bashin_diff_infront": {
+    "description": "Longitudes de caballo entre tú y la uma más cercana delante de ti.",
+    "example": "bashin_diff_infront<=1",
+    "meaning": "Hay otra uma a lo sumo a una longitud de caballo delante de ti."
+  },
+  "blocked_side_continuetime": {
+    "description": "Cantidad de segundos que has estado bloqueado al menos de un lado.",
+    "example": "blocked_side_continuetime>=2",
+    "meaning": "Has estado bloqueado por otra uma de algún lado por al menos 2 segundos."
+  },
+  "corner": {
+    "description": "Verifica si estás actualmente en una curva (y si sí, cuál).",
+    "note": "Por ejemplo, 'primera curva' se refiere a la primera curva de la pista, no necesariamente la primera que atraviesas. A menudo se usa como 'corner!=0', es decir, cualquier curva.",
+    "possible_values": "0 (no es curva), 1 (primera curva), 2 (segunda curva), 3 (tercera curva), 4 (cuarta curva)",
+    "example": "corner!=0",
+    "meaning": "Estás actualmente en cualquier curva."
+  },
+  "is_finalcorner": {
+    "description": "Verifica si estás en la última curva o más allá.",
+    "note": "'Más allá' significa que puede activarse en la recta final si hay una después de la última curva. Si no hay curvas en la carrera, nunca se activa.",
+    "example": "is_finalcorner==1",
+    "meaning": "Estás en la última curva o más allá."
+  },
+  "order": {
+    "description": "Tu posición actual en la carrera.",
+    "example": "order<=3",
+    "meaning": "Estás primero, segundo o tercero."
+  }
+}

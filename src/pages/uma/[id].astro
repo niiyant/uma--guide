@@ -1,0 +1,2650 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import fs from "fs";
+import path from "path";
+
+export const prerender = false;
+
+// Obtener el ID de la Uma Musume desde los parámetros
+const { id } = Astro.params;
+
+// Leer los archivos JSON para encontrar la Uma Musume específica
+const umasPath = path.join(process.cwd(), ".", "DB", "UMAS");
+const racesPath = path.join(process.cwd(), ".", "DB", "RACES");
+
+// Cargar datos de carreras y pistas
+const racesData = JSON.parse(fs.readFileSync(path.join(racesPath, "races.json"), "utf-8"));
+const raceTracksData = JSON.parse(fs.readFileSync(path.join(racesPath, "racetracks.json"), "utf-8"));
+const allRaces = racesData.pageProps.raceData;
+
+// Cargar todos los archivos de pistas individuales para análisis detallado
+const trackFiles = fs.readdirSync(racesPath).filter(file => 
+  file.endsWith('.json') && 
+  !['races.json', 'racetracks.json'].includes(file)
+);
+
+const detailedTrackData = {};
+
+trackFiles.forEach(fileName => {
+  try {
+    const trackData = JSON.parse(fs.readFileSync(path.join(racesPath, fileName), "utf-8"));
+    if (trackData.pageProps && trackData.pageProps.racetrackId) {
+      detailedTrackData[trackData.pageProps.racetrackId] = trackData.pageProps;
+    }
+  } catch (error) {
+    console.error(`Error loading ${fileName}:`, error);
+  }
+});
+
+const umaFiles = fs
+  .readdirSync(umasPath)
+  .filter((file) => file.endsWith(".json"));
+
+let umaData = null;
+let notFound = false;
+
+// Buscar la Uma Musume por ID
+for (const file of umaFiles) {
+  const filePath = path.join(umasPath, file);
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  
+  if (data.pageProps && data.pageProps.itemData && data.pageProps.itemData.card_id.toString() === id) {
+    const itemData = data.pageProps.itemData;
+    const charData = data.pageProps.charData;
+    const profileData = data.pageProps.profileData;
+    
+    const imageName = `chara_stand_${itemData.char_id}_${itemData.card_id}.png`;
+    const imagePath = `/image/${imageName}`;
+    
+    umaData = {
+      id: itemData.card_id,
+      name: itemData.name_en || itemData.name_jp,
+      name_jp: itemData.name_jp,
+      title: itemData.title,
+      title_jp: itemData.title_jp,
+      rarity: itemData.rarity,
+      char_id: itemData.char_id,
+      char_name: charData?.en_name || charData?.jp_name,
+      char_name_jp: charData?.jp_name,
+      intro: profileData?.en?.self_intro || profileData?.ja?.self_intro,
+      tagline: profileData?.en?.tagline || profileData?.ja?.tagline,
+      profile: profileData,
+      base_stats: itemData.base_stats || [],
+      four_star_stats: itemData.four_star_stats || [],
+      five_star_stats: itemData.five_star_stats || [],
+      aptitude: itemData.aptitude || [],
+      objectives: data.pageProps.objectiveData || [],
+      imagePath: imagePath,
+      release: itemData.release,
+      obtained: itemData.obtained,
+      skills_unique: itemData.skills_unique || [],
+      skills_innate: itemData.skills_innate || [],
+      skills_awakening: itemData.skills_awakening || [],
+      skills_event: itemData.skills_event || [],
+      skills_event_en: itemData.skills_event_en || [],
+      skills_evo: itemData.skills_evo || []
+    };
+    break;
+  }
+}
+
+if (!umaData) {
+  notFound = true;
+}
+
+// Nombres de las estadísticas
+const statNames = ["Velocidad", "Resistencia", "Fuerza", "Coraje", "Inteligencia"];
+const aptitudeNames = ["Césped", "Tierra", "Sprint", "Milla", "Intermedio", "Largo", "Escape", "Líder", "Diferido", "Perseguidor"];
+
+// Cargar archivos de skills
+const skillsPath = path.join(process.cwd(), ".", "DB", "SKILLS");
+let allSkills = [];
+let skillConditions = {};
+try {
+  allSkills = JSON.parse(fs.readFileSync(path.join(skillsPath, "valid_skills_extracted.json"), "utf-8"));
+  skillConditions = JSON.parse(fs.readFileSync(path.join(skillsPath, "skill_conditions.json"), "utf-8"));
+  console.log("DEBUG: skillConditions cargado:", Object.keys(skillConditions).length, "condiciones");
+  console.log("DEBUG: Ejemplo de skillConditions:", Object.keys(skillConditions).slice(0, 3));
+} catch (e) {
+  console.error("Error loading skills files:", e);
+  allSkills = [];
+  skillConditions = {};
+}
+
+// Obtener todos los IDs de skills de la Uma actual
+function getUmaSkillIds(uma: any) {
+  if (!uma) return [];
+  
+  const keys = [
+    'skills_unique',
+    'skills_innate',
+    'skills_awakening',
+    'skills_event',
+    'skills_event_en',
+    'skills_evo'
+  ];
+  let ids: number[] = [];
+  for (const key of keys) {
+    if (Array.isArray(uma[key])) {
+      ids = ids.concat(uma[key]);
+    } else if (key === 'skills_evo' && Array.isArray(uma[key])) {
+      // skills_evo es un array de objetos con old/new
+      uma[key].forEach((evo: any) => {
+        if (evo.old) ids.push(evo.old);
+        if (evo.new) ids.push(evo.new);
+      });
+    }
+  }
+  // Eliminar duplicados
+  return [...new Set(ids.flat())];
+}
+
+const umaSkillIds = getUmaSkillIds(umaData);
+const umaSkills = umaSkillIds.length > 0 ? allSkills.filter((skill: any) => umaSkillIds.includes(skill.id)) : [];
+
+// DEBUG: Verificar skills con condiciones
+console.log("DEBUG: Total skills encontrados:", umaSkills.length);
+const skillsWithConditions = umaSkills.filter((skill: any) => skill.condition);
+console.log("DEBUG: Skills con condiciones:", skillsWithConditions.length);
+if (skillsWithConditions.length > 0) {
+  console.log("DEBUG: Ejemplo de skill con condición:", {
+    id: skillsWithConditions[0].id,
+    name: skillsWithConditions[0].name_en,
+    condition: skillsWithConditions[0].condition
+  });
+}
+
+// Función para detectar condiciones en la descripción y devolver explicación
+function extractSkillConditions(descArr: any) {
+  if (!descArr || !Array.isArray(descArr)) return [];
+  const found = [];
+  for (const key in skillConditions) {
+    console.log(key, skillConditions[key]);
+    for (const desc of descArr) {
+      if (desc.includes(key)) {
+        console.log(key, skillConditions[key]);
+        found.push({
+          key,
+          ...skillConditions[key]
+        });
+      }
+    }
+  }
+  return found;
+}
+
+// Guía extendida de condiciones (extraída del usuario)
+const extendedSkillConditions: Record<string, string> = {
+  accumulatetime: "Segundos desde que comenzó la carrera. Ej: accumulatetime>=5 → La carrera lleva al menos 5 segundos.",
+  activate_count_all: "Cantidad de skills que has activado en la carrera. Ej: activate_count_all>=7 → Has activado al menos 7 skills.",
+  activate_count_all_team: "Skills activados por todo tu equipo. Ej: activate_count_all_team>=10 → Tu equipo ha activado 10 skills o más.",
+  activate_count_end_after: "Skills activados en la recta final o después. Ej: activate_count_end_after>=3 → Has activado al menos 3 skills en la recta final o el último sprint.",
+  activate_count_heal: "Skills de recuperación activados. Ej: activate_count_heal>=1 → Has activado al menos un skill de recuperación.",
+  activate_count_later_half: "Skills activados en la segunda mitad de la carrera. Ej: activate_count_later_half>=2 → Has activado al menos 2 skills en la segunda mitad.",
+  activate_count_middle: "Skills activados en el Mid-Race. Ej: activate_count_middle>=3 → Has activado al menos 3 skills en el Mid-Race.",
+  activate_count_start: "Skills activados en el Early-Race. Ej: activate_count_start>=3 → Has activado al menos 3 skills en el Early-Race.",
+  all_corner_random: "Punto aleatorio en cualquier curva. Ej: all_corner_random==1 → Se selecciona un punto aleatorio en una curva aleatoria.",
+  always: "Siempre se activa. Ej: always==1 → Este skill no tiene condiciones particulares.",
+  base_guts: "Tu stat de coraje. Ej: base_guts>=1200 → Tienes al menos 1200 de coraje.",
+  base_power: "Tu stat de fuerza. Ej: base_power>=1200 → Tienes al menos 1200 de fuerza.",
+  base_speed: "Tu stat de velocidad. Ej: base_speed>=1200 → Tienes al menos 1200 de velocidad.",
+  base_stamina: "Tu stat de resistencia. Ej: base_stamina>=1200 → Tienes al menos 1200 de resistencia.",
+  base_wiz: "Tu stat de inteligencia. Ej: base_wiz>=1200 → Tienes al menos 1200 de inteligencia.",
+  bashin_diff_behind: "Longitudes de caballo entre tú y la uma más cercana detrás de ti. Ej: bashin_diff_behind<=1 → Hay otra uma a lo sumo a una longitud de caballo detrás de ti.",
+  bashin_diff_infront: "Longitudes de caballo entre tú y la uma más cercana delante de ti. Ej: bashin_diff_infront<=1 → Hay otra uma a lo sumo a una longitud de caballo delante de ti.",
+  behind_near_lane_time: "Segundos con otra uma justo detrás de ti (≤2.5m y ≤1 carril). Ej: behind_near_lane_time>=3 → Otra uma ha estado justo detrás de ti al menos 3 segundos.",
+  behind_near_lane_time_set1: "Segundos con otra uma detrás de ti (≤5m y ≤2.7 carriles). Ej: behind_near_lane_time_set1>=1 → Otra uma ha estado detrás de ti al menos 1 segundo.",
+  blocked_all_continuetime: "Segundos bloqueado por delante y al menos un lado. Ej: blocked_all_continuetime>=1 → Has estado bloqueado por al menos 1 segundo.",
+  blocked_front: "¿Estás bloqueado por delante? Ej: blocked_front==1 → Alguien está justo delante de ti.",
+  blocked_front_continuetime: "Segundos bloqueado por delante. Ej: blocked_front_continuetime>=1 → Has estado bloqueado por delante al menos 1 segundo.",
+  blocked_side_continuetime: "Segundos bloqueado por al menos un lado. Ej: blocked_side_continuetime>=2 → Has estado bloqueado por al menos 2 segundos.",
+  change_order_onetime: "¿Has cambiado de posición? <0: adelantaste, >0: te adelantaron. Ej: change_order_onetime<0 → Adelantaste a otra uma.",
+  change_order_up_end_after: "Veces que adelantaste tras entrar en la recta final. Ej: change_order_up_end_after>=3 → Adelantaste al menos 3 veces tras la recta final.",
+  change_order_up_finalcorner_after: "Veces que adelantaste tras la última curva. Ej: change_order_up_finalcorner_after>=3 → Adelantaste al menos 3 veces tras la última curva.",
+  change_order_up_middle: "Veces que adelantaste en el Mid-Race. Ej: change_order_up_middle>=3 → Adelantaste al menos 3 veces en el Mid-Race.",
+  compete_fight_count: "Veces que participaste en un Showdown (追い比べ). Ej: compete_fight_count>0 → Participaste al menos una vez en Showdown.",
+  corner: "¿Estás en una curva? Ej: corner!=0 → Estás en cualquier curva.",
+  corner_count: "Cantidad de curvas (en investigación).",
+  corner_random: "Punto aleatorio en la curva seleccionada. Ej: corner_random==1 → Punto aleatorio en la primera curva.",
+  course_distance: "Longitud de la carrera. Ej: course_distance==2400 → Carrera de exactamente 2400m.",
+  distance_diff_rate: "Tu posición entre la primera y última como %. Ej: distance_diff_rate<=30 → No estás a más de 30% de distancia de la primera.",
+  distance_diff_top: "Distancia en metros entre la primera y tú. Ej: distance_diff_top>=7 → Hay al menos 7m de diferencia.",
+  distance_diff_top_float: "Distancia en decímetros entre la primera y tú. Ej: distance_diff_top_float<=25 → No hay más de 2.5m de diferencia.",
+  distance_rate: "Progreso de la carrera en %. Ej: distance_rate>=50 → Carrera en su mitad o más.",
+  distance_rate_after_random: "Punto aleatorio después de cierto % de carrera. Ej: distance_rate_after_random==50 → Punto aleatorio tras el 50%.",
+  distance_type: "Tipo de distancia de la carrera. 1: corta, 2: milla, 3: media, 4: larga. Ej: distance_type==4 → Carrera larga.",
+  down_slope_random: "Punto aleatorio en cualquier bajada. Ej: down_slope_random==1 → Punto aleatorio en bajada.",
+  grade: "Grado de la carrera. 100: G1, 200: G2, 300: G3, etc. Ej: grade==100 → Carrera G1.",
+  ground_condition: "Estado del terreno. 1: bueno, 2: suave, 3: pesado, 4: malo. Ej: ground_condition==1 → Terreno bueno.",
+  ground_type: "Tipo de terreno. 1: césped, 2: tierra. Ej: ground_type==2 → Carrera en tierra.",
+  hp_per: "Tu stamina restante en %. Ej: hp_per<=70 → Te queda como máximo 70% de stamina.",
+  infront_near_lane_time: "Segundos con otra uma justo delante de ti (≤2.5m y ≤1 carril). Ej: infront_near_lane_time>=3 → Otra uma ha estado justo delante de ti al menos 3 segundos.",
+  is_activate_any_skill: "¿Acabas de activar otro skill? Ej: is_activate_any_skill==1 → Acabas de usar otro skill.",
+  is_badstart: "¿Tuviste una mala salida? Ej: is_badstart==0 → No tuviste mala salida.",
+  is_basis_distance: "¿La distancia es múltiplo de 400? Ej: is_basis_distance==1 → Sí.",
+  is_behind_in: "¿La uma detrás está más cerca de la valla interna? Ej: is_behind_in==1 → Sí.",
+  is_dirtgrade: "¿La carrera es en pista local? Ej: is_dirtgrade==1 → Sí.",
+  is_exist_chara_id: "¿Participa una chara específica? Ej: is_exist_chara_id==1002 → Está Silence Suzuka.",
+  is_finalcorner: "¿Estás en la última curva o más allá? Ej: is_finalcorner==1 → Sí.",
+  is_finalcorner_laterhalf: "¿Estás en la segunda mitad de la última curva? Ej: is_finalcorner_laterhalf==1 → Sí.",
+  is_finalcorner_random: "Punto aleatorio en la última curva. Ej: is_finalcorner_random==1 → Punto aleatorio en la última curva.",
+  is_hp_empty_onetime: "¿Te quedaste sin stamina en algún momento? Ej: is_hp_empty_onetime==1 → Sí.",
+  is_last_straight: "¿Estás en la recta final? Ej: is_last_straight==1 → Sí.",
+  is_last_straight_onetime: "¿Acabas de entrar a la recta final? Ej: is_last_straight_onetime==1 → Sí.",
+  is_lastspurt: "¿Estás en el último sprint? Ej: is_lastspurt==1 → Sí.",
+  is_move_lane: "¿Te moviste de carril? 1: más cerca de la valla, 2: más lejos. Ej: is_move_lane==1 → Te acercaste a la valla interna.",
+  is_overtake: "¿Tienes objetivo de adelantar? Ej: is_overtake==1 → Sí.",
+  is_surrounded: "¿Estás rodeado? Ej: is_surrounded==1 → Sí.",
+  is_temptation: "¿Estás en modo kakari (rush)? Ej: is_temptation==0 → No estás en rush.",
+  is_used_skill_id: "¿Has activado un skill específico? Ej: is_used_skill_id==202051 → Activaste Great Escape.",
+  lane_type: "Carril actual. 0: junto a la valla interna. Ej: lane_type==0 → Junto a la valla interna.",
+  last_straight_random: "Punto aleatorio en la recta final. Ej: last_straight_random==1 → Punto aleatorio en la recta final.",
+  lastspurt: "¿Puedes hacer el último sprint? Ej: lastspurt==2 → Tienes stamina suficiente para sprintar al máximo.",
+  motivation: "Tu ánimo al inicio. 1: terrible, 5: perfecto. Ej: motivation>=4 → Ánimo bueno o mejor.",
+  near_count: "Cantidad de umas cerca de ti. Ej: near_count==4 → Hay 4 umas cerca de ti.",
+  order: "Tu posición actual. Ej: order<=3 → Vas primero, segundo o tercero.",
+  order_rate: "Tu posición como %. Ej: order_rate>=50 → Vas en la segunda mitad del grupo.",
+  overtake_target_no_order_up_time: "Segundos con objetivo de adelantar. Ej: overtake_target_no_order_up_time>=2 → Tuviste objetivo de adelantar al menos 2 segundos.",
+  overtake_target_time: "Segundos siendo objetivo de adelantar. Ej: overtake_target_time>=2 → Fuiste objetivo de adelantar al menos 2 segundos.",
+  phase: "Fase de la carrera. 0: Early, 1: Mid, 2: Late, 3: Last Spurt. Ej: phase>=2 → Estás en Late o Last Spurt.",
+  phase_firsthalf_random: "Punto aleatorio en la primera mitad de la fase seleccionada. Ej: phase_firsthalf_random==1 → Punto aleatorio en la primera mitad del Mid-Race.",
+  popularity: "Tu popularidad en la carrera. Ej: popularity==1 → Eres la más popular.",
+  post_number: "Bloque de salida. Ej: post_number<=3 → Saliste en los bloques 1, 2 o 3.",
+  random_lot: "Tirada aleatoria 0-100. Ej: random_lot==50 → 50% de probabilidad de activación.",
+  remain_distance: "Metros restantes de carrera. Ej: remain_distance==200 → Quedan exactamente 200m.",
+  rotation: "Sentido de la carrera. 1: horario, 2: antihorario. Ej: rotation==1 → Horario.",
+  running_style: "Estrategia de carrera. 1: Escape, 2: Líder, 3: Diferido, 4: Perseguidor. Ej: running_style==1 → Eres Escape.",
+  same_skill_horse_count: "Cantidad de umas con este skill. Ej: same_skill_horse_count==1 → Solo tú tienes este skill.",
+  season: "Temporada actual. 1: primavera, 2: verano, 3: otoño, 4: invierno, 5: sakura. Ej: season==1@season==5 → Es primavera.",
+  slope: "¿Estás en subida o bajada? 1: subida, 2: bajada. Ej: slope==1 → Subida.",
+  straight_front_type: "Recta específica. 1: frente al público, 2: opuesta. Ej: straight_front_type==2 → Recta opuesta al público.",
+  straight_random: "Punto aleatorio en cualquier recta. Ej: straight_random==1 → Punto aleatorio en cualquier recta.",
+  temptation_count: "Veces que entraste en rush (kakari). Ej: temptation_count==0 → No entraste en rush.",
+  time: "Hora del día de la carrera. 1: mañana, 2: día, 3: tarde, 4: noche. Ej: time==4 → Es de noche.",
+  track_id: "ID de la pista. Ej: track_id==10006 → Carrera en Tokyo.",
+  up_slope_random: "Punto aleatorio en subida. Ej: up_slope_random==1 → Punto aleatorio en subida.",
+  visiblehorse: "Cantidad de umas en tu campo de visión. Ej: visiblehorse>=4 → Hay al menos 4 umas en tu campo de visión.",
+  weather: "Clima actual. 1: soleado, 2: nublado, 3: lluvia, 4: nieve. Ej: weather==4 → Está nevando."
+};
+
+// Función para parsear y explicar condiciones de activación
+function parseSkillCondition(condition: string) {
+  if (!condition) return null;
+  
+  // Dividir por @ para múltiples condiciones OR
+  const orConditions = condition.split('@');
+  const explanations = [];
+  
+  for (const orCondition of orConditions) {
+    // Dividir por & para múltiples condiciones AND
+    const andConditions = orCondition.split('&');
+    const conditionParts = [];
+    
+    for (const part of andConditions) {
+      const trimmed = part.trim();
+      if (!trimmed) continue;
+      
+      // Buscar operadores de comparación
+      const operators = ['>=', '<=', '==', '!=', '>', '<'];
+      let operator = '';
+      let variable = '';
+      let value = '';
+      
+      for (const op of operators) {
+        if (trimmed.includes(op)) {
+          operator = op;
+          const parts = trimmed.split(op);
+          variable = parts[0].trim();
+          value = parts[1].trim();
+          break;
+        }
+      }
+      
+      if (!operator) {
+        // Si no hay operador, asumir que es una variable booleana
+        variable = trimmed;
+        operator = '==';
+        value = '1';
+      }
+      
+      // Buscar explicación en skill_conditions.json o en la guía extendida
+      let explanation = '';
+      const conditionInfo = skillConditions[variable];
+      if (conditionInfo) {
+        explanation = conditionInfo.description;
+      } else if (extendedSkillConditions[variable]) {
+        explanation = extendedSkillConditions[variable];
+      }
+      
+      // Si no hay explicación, usar heurística previa
+      if (!explanation) {
+        if (variable === 'phase') {
+          const phases = { '0': 'Early-Race', '1': 'Mid-Race', '2': 'Late-Race', '3': 'Last Spurt' };
+          explanation = `Fase de la carrera: ${phases[value] || value}`;
+        } else if (variable === 'phase_random') {
+          const phases = { '0': 'Early-Race', '1': 'Mid-Race', '2': 'Late-Race', '3': 'Last Spurt' };
+          explanation = `En algún punto del ${phases[value] || value}`;
+        } else if (variable === 'order_rate') {
+          explanation = `Porcentaje de posición ${operator} ${value}%`;
+        } else if (variable === 'distance_rate') {
+          explanation = `Porcentaje de distancia recorrida ${operator} ${value}%`;
+        } else if (variable === 'remain_distance') {
+          explanation = `Distancia restante ${operator} ${value}m`;
+        } else if (variable === 'hp_per') {
+          explanation = `Porcentaje de HP ${operator} ${value}%`;
+        } else if (variable === 'is_last_straight') {
+          explanation = operator === '==' && value === '1' ? 'En la recta final' : 'No en la recta final';
+        } else if (variable === 'is_finalcorner') {
+          explanation = operator === '==' && value === '1' ? 'En la última curva' : 'No en la última curva';
+        } else if (variable === 'is_overtake') {
+          explanation = operator === '==' && value === '1' ? 'Durante un adelantamiento' : 'No durante un adelantamiento';
+        } else if (variable === 'change_order_onetime') {
+          explanation = operator === '<' && value === '0' ? 'Sin cambios de posición recientes' : 'Con cambios de posición recientes';
+        } else if (variable === 'blocked_front') {
+          explanation = operator === '==' && value === '1' ? 'Bloqueado por delante' : 'No bloqueado por delante';
+        } else if (variable === 'near_count') {
+          explanation = `Número de umas cercanas ${operator} ${value}`;
+        } else if (variable === 'temptation_count') {
+          explanation = operator === '==' && value === '0' ? 'Sin tentaciones activas' : 'Con tentaciones activas';
+        } else if (variable === 'season') {
+          const seasons = { '1': 'Primavera', '2': 'Verano', '3': 'Otoño', '4': 'Invierno', '5': 'Primavera' };
+          explanation = `Temporada: ${seasons[value] || value}`;
+        } else if (variable === 'weather') {
+          const weathers = { '1': 'Soleado', '2': 'Lluvia', '3': 'Nieve', '4': 'Niebla' };
+          explanation = operator === '==' && value === '1' ? 'Clima soleado' : `Clima: ${weathers[value] || value}`;
+        } else if (variable === 'ground_condition') {
+          const grounds = { '1': 'bueno', '2': 'suave', '3': 'pesado', '4': 'malo' };
+          if (operator === '==' && grounds[value]) {
+            explanation = `Con terreno ${grounds[value]}`;
+          } else {
+            explanation = `Estado del terreno ${operator} ${value}`;
+          }
+        } else if (variable === 'track_id') {
+          explanation = `Pista específica (ID: ${value})`;
+        } else if (variable === 'is_basis_distance') {
+          explanation = operator === '==' && value === '1' ? 'En distancia base' : 'No en distancia base';
+        } else if (variable === 'rotation') {
+          explanation = `Rotación ${operator} ${value}`;
+        } else {
+          explanation = `${variable} ${operator} ${value}`;
+        }
+      } else {
+        // Si hay explicación de la guía, intentar hacerla más específica según el valor
+        if (variable === 'distance_type') {
+          const distances = { '1': 'corta', '2': 'milla', '3': 'media', '4': 'larga' };
+          if (operator === '==' && distances[value]) {
+            explanation = `Carrera ${distances[value]}`;
+          } else {
+            explanation = `Tipo de distancia ${operator} ${value}`;
+          }
+        } else if (variable === 'phase_random') {
+          const phases = { '0': 'Early-Race', '1': 'Mid-Race', '2': 'Late-Race', '3': 'Last Spurt' };
+          if (operator === '==' && phases[value]) {
+            explanation = `En algún punto del ${phases[value]}`;
+          } else {
+            explanation = `Fase aleatoria ${operator} ${value}`;
+          }
+        } else if (variable === 'phase_firsthalf_random') {
+          const phases = { '0': 'Early-Race', '1': 'Mid-Race', '2': 'Late-Race', '3': 'Last Spurt' };
+          if (operator === '==' && phases[value]) {
+            explanation = `En algún punto de la primera mitad del ${phases[value]}`;
+          } else {
+            explanation = `Primera mitad de fase aleatoria ${operator} ${value}`;
+          }
+        } else if (variable === 'all_corner_random') {
+          if (operator === '==' && value === '1') {
+            explanation = 'En algún punto de cualquier curva';
+          } else {
+            explanation = `Punto aleatorio en curva ${operator} ${value}`;
+          }
+        } else if (variable === 'phase') {
+          const phases = { '0': 'Early-Race', '1': 'Mid-Race', '2': 'Late-Race', '3': 'Last Spurt' };
+          if (operator === '==' && phases[value]) {
+            explanation = `Durante el ${phases[value]}`;
+          } else if (operator === '>=' && phases[value]) {
+            explanation = `Desde el ${phases[value]} en adelante`;
+          }
+        } else if (variable === 'grade') {
+          const grades = { '100': 'G1', '200': 'G2', '300': 'G3', '400': 'OP', '700': 'Pre-OP', '800': 'maiden', '900': 'debut', '999': 'daily' };
+          if (operator === '==' && grades[value]) {
+            explanation = `Carrera ${grades[value]}`;
+          }
+        } else if (variable === 'ground_type') {
+          const types = { '1': 'césped', '2': 'tierra' };
+          if (operator === '==' && types[value]) {
+            explanation = `Carrera en ${types[value]}`;
+          }
+        } else if (variable === 'running_style') {
+          const styles = { '1': 'Escape', '2': 'Líder', '3': 'Diferido', '4': 'Perseguidor' };
+          if (operator === '==' && styles[value]) {
+            explanation = `Estrategia: ${styles[value]}`;
+          }
+        } else if (variable === 'corner') {
+          const corners = { '1': 'primera curva', '2': 'segunda curva', '3': 'tercera curva', '4': 'cuarta curva' };
+          if (operator === '==' && corners[value]) {
+            explanation = `En la ${corners[value]}`;
+          } else if (operator === '!=' && value === '0') {
+            explanation = 'En cualquier curva';
+          }
+        } else if (variable === 'corner_random') {
+          const corners = { '1': 'primera curva', '2': 'segunda curva', '3': 'tercera curva', '4': 'cuarta curva' };
+          if (operator === '==' && corners[value]) {
+            explanation = `En algún punto de la ${corners[value]}`;
+          }
+        } else if (variable === 'is_last_straight') {
+          if (operator === '==' && value === '1') {
+            explanation = 'En la recta final';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No en la recta final';
+          }
+        } else if (variable === 'is_finalcorner') {
+          if (operator === '==' && value === '1') {
+            explanation = 'En la última curva';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No en la última curva';
+          }
+        } else if (variable === 'is_overtake') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Durante un adelantamiento';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No durante un adelantamiento';
+          }
+        } else if (variable === 'blocked_front') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Bloqueado por delante';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No bloqueado por delante';
+          }
+        } else if (variable === 'is_surrounded') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Estás rodeado';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No estás rodeado';
+          }
+        } else if (variable === 'is_temptation') {
+          if (operator === '==' && value === '1') {
+            explanation = 'En modo rush (kakari)';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No en modo rush';
+          }
+        } else if (variable === 'is_badstart') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Con mala salida';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'Sin mala salida';
+          }
+        } else if (variable === 'is_basis_distance') {
+          if (operator === '==' && value === '1') {
+            explanation = 'En distancia base (múltiplo de 400)';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No en distancia base';
+          }
+        } else if (variable === 'is_dirtgrade') {
+          if (operator === '==' && value === '1') {
+            explanation = 'En pista local';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No en pista local';
+          }
+        } else if (variable === 'is_finalcorner_laterhalf') {
+          if (operator === '==' && value === '1') {
+            explanation = 'En la segunda mitad de la última curva';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No en la segunda mitad de la última curva';
+          }
+        } else if (variable === 'is_last_straight_onetime') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Al entrar a la recta final';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No al entrar a la recta final';
+          }
+        } else if (variable === 'is_lastspurt') {
+          if (operator === '==' && value === '1') {
+            explanation = 'En el último sprint';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'No en el último sprint';
+          }
+        } else if (variable === 'is_hp_empty_onetime') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Después de quedarse sin stamina';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'Sin haberse quedado sin stamina';
+          }
+        } else if (variable === 'is_activate_any_skill') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Al activar otro skill';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'Sin activar otro skill';
+          }
+        } else if (variable === 'is_move_lane') {
+          const moves = { '1': 'acercarse a la valla', '2': 'alejarse de la valla' };
+          if (operator === '==' && moves[value]) {
+            explanation = `Al ${moves[value]}`;
+          }
+        } else if (variable === 'is_behind_in') {
+          if (operator === '==' && value === '1') {
+            explanation = 'La uma detrás está más cerca de la valla interna';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'La uma detrás no está más cerca de la valla interna';
+          }
+        } else if (variable === 'slope') {
+          const slopes = { '0': 'sin pendiente', '1': 'subida', '2': 'bajada' };
+          if (operator === '==' && slopes[value]) {
+            explanation = `En ${slopes[value]}`;
+          }
+        } else if (variable === 'straight_front_type') {
+          const types = { '1': 'recta frente al público', '2': 'recta opuesta al público' };
+          if (operator === '==' && types[value]) {
+            explanation = `En ${types[value]}`;
+          }
+        } else if (variable === 'lane_type') {
+          if (operator === '==' && value === '0') {
+            explanation = 'Junto a la valla interna';
+          } else if (operator === '==' && value === '1') {
+            explanation = 'En carril medio';
+          } else if (operator === '==' && value === '2') {
+            explanation = 'En carril externo';
+          }
+        } else if (variable === 'lastspurt') {
+          const spurt = { '0': 'sin stamina para sprintar', '1': 'stamina limitada para sprintar', '2': 'stamina suficiente para sprintar al máximo' };
+          if (operator === '==' && spurt[value]) {
+            explanation = spurt[value];
+          }
+        } else if (variable === 'motivation') {
+          const moods = { '1': 'terrible', '2': 'malo', '3': 'normal', '4': 'bueno', '5': 'perfecto' };
+          if (operator === '==' && moods[value]) {
+            explanation = `Ánimo ${moods[value]}`;
+          } else if (operator === '>=' && moods[value]) {
+            explanation = `Ánimo ${moods[value]} o mejor`;
+          }
+        } else if (variable === 'time') {
+          const times = { '0': 'cualquier hora', '1': 'mañana', '2': 'día', '3': 'tarde', '4': 'noche' };
+          if (operator === '==' && times[value]) {
+            explanation = `A la ${times[value]}`;
+          }
+        } else if (variable === 'rotation') {
+          const rotations = { '1': 'horario', '2': 'antihorario' };
+          if (operator === '==' && rotations[value]) {
+            explanation = `Carrera en sentido ${rotations[value]}`;
+          }
+        } else if (variable === 'order') {
+          if (operator === '<=' && value === '3') {
+            explanation = 'En el top 3';
+          } else if (operator === '<=' && value === '5') {
+            explanation = 'En el top 5';
+          } else if (operator === '==' && value === '1') {
+            explanation = 'En primer lugar';
+          } else {
+            explanation = `Posición ${operator} ${value}`;
+          }
+        } else if (variable === 'popularity') {
+          if (operator === '==' && value === '1') {
+            explanation = 'La más popular';
+          } else {
+            explanation = `Popularidad ${operator} ${value}`;
+          }
+        } else if (variable === 'post_number') {
+          if (operator === '<=' && value === '3') {
+            explanation = 'En los primeros bloques de salida';
+          } else {
+            explanation = `Bloque de salida ${operator} ${value}`;
+          }
+        } else if (variable === 'course_distance') {
+          explanation = `Carrera de ${value}m`;
+        } else if (variable === 'remain_distance') {
+          explanation = `A ${value}m del final`;
+        } else if (variable === 'hp_per') {
+          if (operator === '<=' && value === '70') {
+            explanation = 'Con stamina baja (≤70%)';
+          } else if (operator === '<=' && value === '50') {
+            explanation = 'Con stamina muy baja (≤50%)';
+          } else {
+            explanation = `Stamina ${operator} ${value}%`;
+          }
+        } else if (variable === 'distance_rate') {
+          if (operator === '>=' && value === '50') {
+            explanation = 'En la segunda mitad de la carrera';
+          } else if (operator === '>=' && value === '80') {
+            explanation = 'En el final de la carrera';
+          } else {
+            explanation = `Progreso de carrera ${operator} ${value}%`;
+          }
+        } else if (variable === 'order_rate') {
+          if (operator === '>=' && value === '50') {
+            explanation = 'En la segunda mitad del grupo';
+          } else if (operator === '<=' && value === '20') {
+            explanation = 'En el top 20%';
+          } else {
+            explanation = `Posición relativa ${operator} ${value}%`;
+          }
+        } else if (variable === 'near_count') {
+          if (operator === '>=' && value === '3') {
+            explanation = 'Con muchas umas cerca';
+          } else if (operator === '==' && value === '0') {
+            explanation = 'Sin umas cerca';
+          } else {
+            explanation = `${value} umas cerca`;
+          }
+        } else if (variable === 'temptation_count') {
+          if (operator === '==' && value === '0') {
+            explanation = 'Sin haber entrado en rush';
+          } else if (operator === '>=' && value === '2') {
+            explanation = 'Después de varios rushes';
+          } else {
+            explanation = `${value} veces en rush`;
+          }
+        } else if (variable === 'random_lot') {
+          explanation = `${value}% de probabilidad`;
+        } else if (variable === 'accumulatetime') {
+          explanation = `Después de ${value} segundos de carrera`;
+        } else if (variable === 'activate_count_all') {
+          if (operator === '>=' && value === '5') {
+            explanation = 'Después de activar varios skills';
+          } else {
+            explanation = `Después de activar ${value} skills`;
+          }
+        } else if (variable === 'change_order_onetime') {
+          if (operator === '<' && value === '0') {
+            explanation = 'Después de adelantar';
+          } else if (operator === '>' && value === '0') {
+            explanation = 'Después de ser adelantado';
+          } else {
+            explanation = `Cambio de posición ${operator} ${value}`;
+          }
+        } else if (variable === 'distance_diff_top') {
+          if (operator === '>=' && value === '5') {
+            explanation = 'Con ventaja sobre el líder';
+          } else if (operator === '<=' && value === '2') {
+            explanation = 'Cerca del líder';
+          } else {
+            explanation = `Distancia al líder ${operator} ${value}m`;
+          }
+        } else if (variable === 'bashin_diff_behind') {
+          if (operator === '<=' && value === '1') {
+            explanation = 'Con uma muy cerca detrás';
+          } else {
+            explanation = `Distancia a la uma de atrás ${operator} ${value}`;
+          }
+        } else if (variable === 'bashin_diff_infront') {
+          if (operator === '<=' && value === '1') {
+            explanation = 'Con uma muy cerca delante';
+          } else {
+            explanation = `Distancia a la uma de adelante ${operator} ${value}`;
+          }
+        } else if (variable === 'base_speed' || variable === 'base_power' || variable === 'base_stamina' || variable === 'base_guts' || variable === 'base_wiz') {
+          const stats = { 'base_speed': 'velocidad', 'base_power': 'fuerza', 'base_stamina': 'resistencia', 'base_guts': 'coraje', 'base_wiz': 'inteligencia' };
+          const statName = stats[variable as keyof typeof stats];
+          if (operator === '>=' && parseInt(value) >= 1200) {
+            explanation = `Con ${statName} alta (≥${value})`;
+          } else {
+            explanation = `${statName} ${operator} ${value}`;
+          }
+        } else if (variable === 'blocked_front_continuetime' || variable === 'blocked_side_continuetime' || variable === 'blocked_all_continuetime') {
+          const types = { 'blocked_front_continuetime': 'por delante', 'blocked_side_continuetime': 'por el lado', 'blocked_all_continuetime': 'por delante y lado' };
+          const type = types[variable as keyof typeof types];
+          explanation = `Bloqueado ${type} por ${value} segundos`;
+        } else if (variable === 'behind_near_lane_time' || variable === 'infront_near_lane_time') {
+          const positions = { 'behind_near_lane_time': 'detrás', 'infront_near_lane_time': 'delante' };
+          const position = positions[variable as keyof typeof positions];
+          explanation = `Con uma ${position} por ${value} segundos`;
+        } else if (variable === 'overtake_target_time' || variable === 'overtake_target_no_order_up_time') {
+          const types = { 'overtake_target_time': 'siendo objetivo', 'overtake_target_no_order_up_time': 'con objetivo' };
+          const type = types[variable as keyof typeof types];
+          explanation = `${type} de adelantar por ${value} segundos`;
+        } else if (variable === 'visiblehorse') {
+          if (operator === '>=' && value === '4') {
+            explanation = 'Con muchas umas en el campo de visión';
+          } else {
+            explanation = `${value} umas en el campo de visión`;
+          }
+        } else if (variable === 'same_skill_horse_count') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Solo tú tienes este skill';
+          } else {
+            explanation = `${value} umas con este skill`;
+          }
+        } else if (variable === 'running_style_count_same') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Solo tú con esta estrategia';
+          } else {
+            explanation = `${value} umas con tu estrategia`;
+          }
+        } else if (variable === 'running_style_count_same_rate') {
+          explanation = `${value}% de umas con tu estrategia`;
+        } else if (variable === 'temptation_count_behind' || variable === 'temptation_count_infront') {
+          const positions = { 'temptation_count_behind': 'detrás', 'temptation_count_infront': 'delante' };
+          const position = positions[variable as keyof typeof positions];
+          explanation = `${value} umas ${position} en rush`;
+        } else if (variable === 'temptation_opponent_count_behind' || variable === 'temptation_opponent_count_infront') {
+          const positions = { 'temptation_opponent_count_behind': 'detrás', 'temptation_opponent_count_infront': 'delante' };
+          const position = positions[variable as keyof typeof positions];
+          explanation = `${value} rivales ${position} en rush`;
+        } else if (variable === 'running_style_equal_popularity_one') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Con la misma estrategia que la más popular';
+          } else {
+            explanation = `Estrategia vs popularidad ${operator} ${value}`;
+          }
+        } else if (variable === 'is_exist_chara_id') {
+          explanation = `Con chara ID ${value} en la carrera`;
+        } else if (variable === 'is_used_skill_id') {
+          explanation = `Después de usar skill ID ${value}`;
+        } else if (variable === 'is_other_character_activate_advantage_skill') {
+          const skillTypes = { '9': 'skill de recuperación' };
+          const skillType = skillTypes[value as keyof typeof skillTypes];
+          if (skillType) {
+            explanation = `Alguien activó ${skillType}`;
+          } else {
+            explanation = `Alguien activó skill tipo ${value}`;
+          }
+        } else if (variable === 'is_activate_other_skill_detail') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Después de activar otro trigger de este skill';
+          } else {
+            explanation = `Trigger de skill ${operator} ${value}`;
+          }
+        } else if (variable === 'track_id') {
+          const tracks = { '10001': 'Sapporo', '10002': 'Hakodate', '10003': 'Niigata', '10004': 'Fukushima', '10005': 'Nakayama', '10006': 'Tokyo', '10007': 'Chukyo', '10008': 'Kyoto', '10009': 'Hanshin', '10010': 'Kokura', '10101': 'Ooi', '10103': 'Kawasaki', '10104': 'Funabashi', '10105': 'Morioka' };
+          const track = tracks[value as keyof typeof tracks];
+          if (track) {
+            explanation = `En pista de ${track}`;
+          } else {
+            explanation = `En pista ID ${value}`;
+          }
+        } else if (variable === 'season') {
+          const seasons = { '1': 'primavera', '2': 'verano', '3': 'otoño', '4': 'invierno', '5': 'primavera (sakura)' };
+          const season = seasons[value as keyof typeof seasons];
+          if (season) {
+            explanation = `En ${season}`;
+          } else {
+            explanation = `Temporada ${operator} ${value}`;
+          }
+        } else if (variable === 'weather') {
+          const weathers = { '1': 'soleado', '2': 'nublado', '3': 'lluvia', '4': 'nieve' };
+          const weather = weathers[value as keyof typeof weathers];
+          if (weather) {
+            explanation = `Con clima ${weather}`;
+          } else {
+            explanation = `Clima ${operator} ${value}`;
+          }
+        } else if (variable === 'ground_condition') {
+          const grounds = { '1': 'bueno', '2': 'suave', '3': 'pesado', '4': 'malo' };
+          const ground = grounds[value as keyof typeof grounds];
+          if (ground) {
+            explanation = `Con terreno ${ground}`;
+          } else {
+            explanation = `Estado del terreno ${operator} ${value}`;
+          }
+        } else if (variable === 'always') {
+          if (operator === '==' && value === '1') {
+            explanation = 'Siempre se activa';
+          } else {
+            explanation = `Condición always ${operator} ${value}`;
+          }
+        } else {
+          // Si no hay explicación específica, mostrar la condición tal como está
+          explanation = `${variable} ${operator} ${value}`;
+        }
+      }
+      
+      conditionParts.push(explanation);
+    }
+    
+    if (conditionParts.length > 0) {
+      explanations.push(conditionParts.join(' Y '));
+    }
+  }
+  
+  return explanations.length > 0 ? explanations.join(' O ') : null;
+}
+
+// Función para obtener datos detallados de una carrera específica
+function getRaceDetails(raceId, trackId, detailedTrackData) {
+  try {
+    if (!detailedTrackData[trackId]) return null;
+    
+    const trackData = detailedTrackData[trackId];
+    let raceDetails = null;
+    
+    // Buscar en racetrackDataNew
+    if (trackData.racetrackDataNew && trackData.racetrackDataNew.courses) {
+      for (const course of trackData.racetrackDataNew.courses) {
+        if (course.races) {
+          const race = course.races.find(r => r.id.toString() === raceId.toString());
+          if (race) {
+            raceDetails = { ...race, course: course };
+            break;
+          }
+        }
+      }
+    }
+    
+    return raceDetails;
+  } catch (error) {
+    console.error('Error getting race details:', error);
+    return null;
+  }
+}
+
+// Función para generar recomendaciones avanzadas por escenario
+function generateAdvancedRecommendations(objectives, aptitude, baseStats, raceTracksData, detailedTrackData) {
+  const recommendations = [];
+  
+  // Análisis detallado de cada objetivo
+  let scenarioAnalysis = {
+    totalRaces: 0,
+    grassRaces: 0,
+    dirtRaces: 0,
+    distances: [],
+    seasons: { 1: 0, 2: 0, 3: 0, 4: 0 }, // Primavera, Verano, Otoño, Invierno
+    grades: { 100: 0, 200: 0, 300: 0, 400: 0, 700: 0 },
+    trackFactors: {},
+    courseFeatures: {
+      totalSlopes: 0,
+      totalCorners: 0,
+      totalStraights: 0,
+      sprintStarts: [],
+      statRequirements: { speed: 0, stamina: 0, power: 0, guts: 0, wisdom: 0 }
+    },
+    specialConditions: []
+  };
+  
+  objectives.forEach((obj, objIndex) => {
+    if (obj.races) {
+      obj.races.forEach(race => {
+        scenarioAnalysis.totalRaces++;
+        scenarioAnalysis.distances.push(race.distance);
+        if (race.terrain === 1) scenarioAnalysis.grassRaces++;
+        if (race.terrain === 2) scenarioAnalysis.dirtRaces++;
+        
+        // Análizar temporada
+        if (race.time) scenarioAnalysis.seasons[race.time]++;
+        
+        // Analizar grado
+        if (race.grade) scenarioAnalysis.grades[race.grade]++;
+        
+        // Obtener detalles específicos de la carrera
+        const raceDetails = getRaceDetails(race.id, race.track, detailedTrackData);
+        if (raceDetails) {
+          // Analizar factores especiales
+          if (raceDetails.factor) {
+            Object.entries(raceDetails.factor).forEach(([key, value]) => {
+              if (!scenarioAnalysis.trackFactors[value]) {
+                scenarioAnalysis.trackFactors[value] = 0;
+              }
+              scenarioAnalysis.trackFactors[value]++;
+            });
+          }
+          
+          // Analizar características del curso
+          if (raceDetails.course) {
+            const course = raceDetails.course;
+            
+            // Pendientes
+            if (course.slopes) {
+              scenarioAnalysis.courseFeatures.totalSlopes += course.slopes.length;
+            }
+            
+            // Curvas y rectas
+            if (course.corners) scenarioAnalysis.courseFeatures.totalCorners += course.corners.length;
+            if (course.straights) scenarioAnalysis.courseFeatures.totalStraights += course.straights.length;
+            
+            // Punto de sprint
+            if (course.spurtStart && course.spurtStart.location) {
+              scenarioAnalysis.courseFeatures.sprintStarts.push(...course.spurtStart.location);
+            }
+            
+            // Requerimientos de estadísticas específicas
+            if (course.statThresholds) {
+              course.statThresholds.forEach(statIndex => {
+                switch(statIndex) {
+                  case 1: scenarioAnalysis.courseFeatures.statRequirements.speed++; break;
+                  case 2: scenarioAnalysis.courseFeatures.statRequirements.stamina++; break;
+                  case 3: scenarioAnalysis.courseFeatures.statRequirements.power++; break;
+                  case 4: scenarioAnalysis.courseFeatures.statRequirements.guts++; break;
+                  case 5: scenarioAnalysis.courseFeatures.statRequirements.wisdom++; break;
+                }
+              });
+            }
+          }
+        }
+      });
+    }
+  });
+  
+  // Métricas del escenario
+  const avgDistance = scenarioAnalysis.distances.length > 0 ? 
+    scenarioAnalysis.distances.reduce((a, b) => a + b, 0) / scenarioAnalysis.distances.length : 0;
+  const avgSlopesPerRace = scenarioAnalysis.totalRaces > 0 ? 
+    scenarioAnalysis.courseFeatures.totalSlopes / scenarioAnalysis.totalRaces : 0;
+  const avgCornersPerRace = scenarioAnalysis.totalRaces > 0 ? 
+    scenarioAnalysis.courseFeatures.totalCorners / scenarioAnalysis.totalRaces : 0;
+  
+  // RECOMENDACIONES ESPECÍFICAS POR ESCENARIO
+  
+  // 1. Recomendaciones por características del escenario
+  const dominantSeason = Object.entries(scenarioAnalysis.seasons).reduce((a, b) => 
+    scenarioAnalysis.seasons[a[0]] > scenarioAnalysis.seasons[b[0]] ? a : b)[0];
+  
+  const seasonNames = { 1: 'Primavera', 2: 'Verano', 3: 'Otoño', 4: 'Invierno' };
+  if (scenarioAnalysis.seasons[dominantSeason] > scenarioAnalysis.totalRaces * 0.4) {
+    recommendations.push({
+      type: "scenario",
+      title: `Especialización de ${seasonNames[dominantSeason]}`,
+      description: `${scenarioAnalysis.seasons[dominantSeason]} de ${scenarioAnalysis.totalRaces} carreras son en ${seasonNames[dominantSeason].toLowerCase()}. Considera skills de temporada.`,
+      priority: "high"
+    });
+  }
+  
+  // 2. Recomendaciones por factores especiales
+  Object.entries(scenarioAnalysis.trackFactors).forEach(([factor, count]) => {
+    if (count >= 2) {
+      let factorName = factor;
+      let description = `Factor "${factor}" aparece en ${count} carreras objetivo.`;
+      let icon = "🎯";
+      
+      if (factor.includes('ウマ娘○')) {
+        factorName = factor.replace('ウマ娘○', ' Uma Musume');
+        description = `Bonificación "${factorName}" en ${count} carreras. Entrena en esas condiciones.`;
+        icon = "🌟";
+      } else if (factor.includes('レース場○')) {
+        factorName = factor.replace('レース場○', ' Racecourse');
+        description = `Bonificación de pista "${factorName}" en ${count} carreras. Familiarízate con esa pista.`;
+        icon = "🏟️";
+      }
+      
+      recommendations.push({
+        type: "factor",
+        title: `Factor: ${factorName}`,
+        description: description,
+        priority: count >= 3 ? "high" : "medium",
+        icon: icon
+      });
+    }
+  });
+  
+  // 3. Recomendaciones por características técnicas del curso
+  if (avgSlopesPerRace > 2) {
+    recommendations.push({
+      type: "course",
+      title: "Entrenamiento en Pendientes",
+      description: `Promedio de ${avgSlopesPerRace.toFixed(1)} pendientes por carrera. La fuerza será crucial.`,
+      priority: "high",
+      icon: "⛰️"
+    });
+  }
+  
+  if (avgCornersPerRace > 3) {
+    recommendations.push({
+      type: "course",
+      title: "Técnica de Curvas",
+      description: `Promedio de ${avgCornersPerRace.toFixed(1)} curvas por carrera. Mejora la técnica y el aguante.`,
+      priority: "medium",
+      icon: "🏟️"
+    });
+  }
+  
+  // 4. Recomendaciones por requerimientos específicos de estadísticas
+  const { statRequirements } = scenarioAnalysis.courseFeatures;
+  if (baseStats && baseStats.length >= 5) {
+    const [speed, stamina, power, guts, wisdom] = baseStats;
+    
+    if (statRequirements.speed > 0 && speed < 80) {
+      recommendations.push({
+        type: "stats",
+        title: "Velocidad Crítica",
+        description: `${statRequirements.speed} pista(s) requieren velocidad específicamente. Actual: ${speed}`,
+        priority: "high",
+        icon: "🚀"
+      });
+    }
+    
+    if (statRequirements.stamina > 0 && stamina < 70) {
+      recommendations.push({
+        type: "stats",
+        title: "Resistencia Especializada",
+        description: `${statRequirements.stamina} pista(s) requieren resistencia específicamente. Actual: ${stamina}`,
+        priority: "high",
+        icon: "🏃‍♀️"
+      });
+    }
+    
+    if (statRequirements.power > 0 && power < 70) {
+      recommendations.push({
+        type: "stats",
+        title: "Fuerza Especializada", 
+        description: `${statRequirements.power} pista(s) requieren fuerza específicamente. Actual: ${power}`,
+        priority: "high",
+        icon: "💪"
+      });
+    }
+    
+    if (statRequirements.guts > 0 && guts < 60) {
+      recommendations.push({
+        type: "stats",
+        title: "Aguante Especializado",
+        description: `${statRequirements.guts} pista(s) requieren aguante específicamente. Actual: ${guts}`,
+        priority: "high",
+        icon: "❤️"
+      });
+    }
+    
+    if (statRequirements.wisdom > 0 && wisdom < 70) {
+      recommendations.push({
+        type: "stats",
+        title: "Inteligencia Especializada",
+        description: `${statRequirements.wisdom} pista(s) requieren inteligencia específicamente. Actual: ${wisdom}`,
+        priority: "high",
+        icon: "🧠"
+      });
+    }
+  }
+  
+  // 5. Recomendaciones por puntos de sprint
+  const sprintStartTypes = scenarioAnalysis.courseFeatures.sprintStarts;
+  const cornerSprints = sprintStartTypes.filter(s => s.includes('corner')).length;
+  const straightSprints = sprintStartTypes.filter(s => s.includes('straight')).length;
+  
+  if (cornerSprints > straightSprints && cornerSprints > 2) {
+    recommendations.push({
+      type: "technique",
+      title: "Sprint en Curvas",
+      description: `${cornerSprints} carreras requieren sprint desde curvas. Practica el timing.`,
+      priority: "medium",
+      icon: "🏎️"
+    });
+  }
+  
+  if (straightSprints > 2) {
+    recommendations.push({
+      type: "technique", 
+      title: "Sprint en Rectas",
+      description: `${straightSprints} carreras requieren sprint en rectas. Maximiza la velocidad pura.`,
+      priority: "medium",
+      icon: "🏁"
+    });
+  }
+  
+  // 6. Recomendaciones por grado de carreras
+  const hasG1 = scenarioAnalysis.grades[100] > 0;
+  const hasG2 = scenarioAnalysis.grades[200] > 0;
+  const hasG3 = scenarioAnalysis.grades[300] > 0;
+  
+  if (hasG1) {
+    recommendations.push({
+      type: "preparation",
+      title: "Preparación para G1",
+      description: `${scenarioAnalysis.grades[100]} carrera(s) G1 en el escenario. Máximo nivel requerido.`,
+      priority: "high",
+      icon: "👑"
+    });
+  }
+  
+  // 7. Recomendaciones por balance terreno
+  const dirtPercentage = (scenarioAnalysis.dirtRaces / scenarioAnalysis.totalRaces) * 100;
+  const grassPercentage = (scenarioAnalysis.grassRaces / scenarioAnalysis.totalRaces) * 100;
+  
+  if (dirtPercentage > 60 && aptitude && aptitude[1] && ['D', 'E', 'F', 'G'].includes(aptitude[1])) {
+    recommendations.push({
+      type: "aptitude",
+      title: "Especialización Tierra Urgente",
+      description: `${dirtPercentage.toFixed(0)}% en tierra, pero aptitud ${aptitude[1]}. Crítico mejorar.`,
+      priority: "high",
+      icon: "🏜️"
+    });
+  }
+  
+  if (grassPercentage > 80 && aptitude && aptitude[0] && ['C', 'D', 'E'].includes(aptitude[0])) {
+    recommendations.push({
+      type: "aptitude",
+      title: "Optimización Césped",
+      description: `${grassPercentage.toFixed(0)}% en césped, aptitud ${aptitude[0]}. Se puede mejorar.`,
+      priority: "medium",
+      icon: "🌱"
+    });
+  }
+  
+  // 8. Recomendación de distancia específica
+  if (avgDistance <= 1400 && aptitude && aptitude[2] && ['D', 'E', 'F'].includes(aptitude[2])) {
+    recommendations.push({
+      type: "aptitude",
+      title: "Sprint Crítico",
+      description: `Distancia promedio ${avgDistance.toFixed(0)}m, pero aptitud sprint ${aptitude[2]}.`,
+      priority: "high",
+      icon: "🏃"
+    });
+  } else if (avgDistance >= 2200 && aptitude && aptitude[5] && ['D', 'E', 'F'].includes(aptitude[5])) {
+    recommendations.push({
+      type: "aptitude",
+      title: "Larga Distancia Crítica",
+      description: `Distancia promedio ${avgDistance.toFixed(0)}m, pero aptitud larga ${aptitude[5]}.`,
+      priority: "high",
+      icon: "🏔️"
+    });
+  }
+  
+  return recommendations;
+}
+
+// Función para generar recomendaciones por carrera específica
+function getRaceRecommendation(race, umaAptitudes, baseStats, raceTracksData) {
+  // 1. Determinar tipo de superficie y distancia
+  const surface = race.terrain === 1 ? "Césped" : "Tierra";
+  const surfaceApt = umaAptitudes[race.terrain - 1]; // 0: Césped, 1: Tierra
+
+  // 2. Determinar tipo de distancia
+  let distType = "";
+  let distApt = "";
+  if (race.distance <= 1400) { 
+    distType = "Sprint"; 
+    distApt = umaAptitudes[2]; 
+  } else if (race.distance <= 1800) { 
+    distType = "Milla"; 
+    distApt = umaAptitudes[3]; 
+  } else if (race.distance <= 2200) { 
+    distType = "Intermedio"; 
+    distApt = umaAptitudes[4]; 
+  } else { 
+    distType = "Largo"; 
+    distApt = umaAptitudes[5]; 
+  }
+
+  // 3. Buscar statThresholds en raceTracksData
+  const track = raceTracksData.pageProps.racetrackFilterData.find(t => 
+    t.racetrack === race.track?.toString() && 
+    t.length === race.distance && 
+    t.terrain === race.terrain
+  );
+  const statThresholds = track ? track.statThresholds : [];
+
+  // 4. Recomendar stats
+  let statMsg = "";
+  if (statThresholds.length > 0) {
+    statMsg = "Prioriza: " + statThresholds.map(s => {
+      if (s === "speed") return "Velocidad";
+      if (s === "stamina") return "Resistencia";
+      if (s === "power") return "Fuerza";
+      if (s === "guts") return "Coraje";
+      if (s === "wisdom") return "Inteligencia";
+      return s;
+    }).join(", ");
+  } else {
+    // Por tipo de distancia
+    if (distType === "Sprint") statMsg = "Prioriza Velocidad y algo de Resistencia.";
+    else if (distType === "Milla") statMsg = "Equilibra Velocidad y Resistencia.";
+    else if (distType === "Intermedio") statMsg = "Prioriza Resistencia y Fuerza.";
+    else statMsg = "Prioriza Resistencia y Coraje.";
+  }
+
+  // 5. Si la aptitud relevante es baja, sugiere compensar
+  let aptMsg = "";
+  if (["C", "D", "E", "F", "G"].includes(surfaceApt)) {
+    aptMsg += `Tu aptitud de superficie (${surface}) es baja (${surfaceApt}), compénsalo con stats altos. `;
+  }
+  if (["C", "D", "E", "F", "G"].includes(distApt)) {
+    aptMsg += `Tu aptitud de distancia (${distType}) es baja (${distApt}), compénsalo con stats altos.`;
+  }
+
+  return {
+    surface: { type: surface, apt: surfaceApt },
+    distance: { type: distType, apt: distApt },
+    recommendation: `${statMsg} ${aptMsg}`.trim(),
+    statRequirements: statThresholds.map(s => {
+      if (s === "speed") return { name: "Velocidad", icon: "🚀" };
+      if (s === "stamina") return { name: "Resistencia", icon: "🏃‍♀️" };
+      if (s === "power") return { name: "Fuerza", icon: "💪" };
+      if (s === "guts") return { name: "Coraje", icon: "❤️" };
+      if (s === "wisdom") return { name: "Inteligencia", icon: "🧠" };
+      return { name: s, icon: "📊" };
+    })
+  };
+}
+
+// Generar recomendaciones avanzadas para esta Uma Musume
+const recommendations = umaData ? generateAdvancedRecommendations(umaData.objectives, umaData.aptitude, umaData.base_stats, raceTracksData, detailedTrackData) : [];
+---
+
+<Layout>
+  <main class="container">
+    {notFound ? (
+      <div class="not-found">
+        <h1>Uma Musume no encontrada</h1>
+        <p>No se pudo encontrar la Uma Musume con ID: {id}</p>
+        <a href="/" class="back-button">Volver al inicio</a>
+      </div>
+    ) : (
+      <div class="detail-page">
+        <!-- Header con botón de regreso -->
+        <div class="detail-header">
+          <a href="/" class="back-button">← Volver</a>
+          <h1 class="detail-title">{umaData.name}</h1>
+        </div>
+
+        <!-- Información principal -->
+        <div class="detail-content">
+          <!-- Columna izquierda: Imagen y info básica -->
+          <div class="detail-left">
+            <div class="detail-image-container">
+              <img 
+                src={umaData.imagePath} 
+                alt={umaData.name}
+                class="detail-image"
+              />
+              <div class="detail-rarity">★{umaData.rarity}</div>
+            </div>
+            
+            <div class="basic-info">
+              <h2 class="section-title">Información Básica</h2>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">ID:</span>
+                  <span class="info-value">{umaData.id}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Nombre (JP):</span>
+                  <span class="info-value">{umaData.name_jp}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Título:</span>
+                  <span class="info-value">{umaData.title}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Título (JP):</span>
+                  <span class="info-value">{umaData.title_jp}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Lanzamiento:</span>
+                  <span class="info-value">{umaData.release}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Obtención:</span>
+                  <span class="info-value">{umaData.obtained}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna derecha: Detalles -->
+          <div class="detail-right">
+            <!-- Perfil -->
+            <div class="profile-section">
+              <h2 class="section-title">Perfil</h2>
+              <p class="tagline">{umaData.tagline}</p>
+              <p class="intro">{umaData.intro}</p>
+            </div>
+
+            <!-- Estadísticas base -->
+            <div class="stats-section">
+              <h2 class="section-title">Estadísticas Base</h2>
+              <div class="stats-grid">
+                {umaData.base_stats.map((stat, index) => (
+                  <div class="stat-item">
+                    <span class="stat-name">{statNames[index]}</span>
+                    <div class="stat-bars">
+                      <div class="stat-bar">
+                        <span class="stat-label">Base</span>
+                        <div class="stat-bar-bg">
+                          <div class="stat-bar-fill" style={`width: ${stat}%`}></div>
+                        </div>
+                        <span class="stat-value">{stat}</span>
+                      </div>
+                      {umaData.four_star_stats[index] && (
+                        <div class="stat-bar">
+                          <span class="stat-label">4★</span>
+                          <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-bar-fill-4star" style={`width: ${umaData.four_star_stats[index]}%`}></div>
+                          </div>
+                          <span class="stat-value">{umaData.four_star_stats[index]}</span>
+                        </div>
+                      )}
+                      {umaData.five_star_stats[index] && (
+                        <div class="stat-bar">
+                          <span class="stat-label">5★</span>
+                          <div class="stat-bar-bg">
+                            <div class="stat-bar-fill stat-bar-fill-5star" style={`width: ${umaData.five_star_stats[index]}%`}></div>
+                          </div>
+                          <span class="stat-value">{umaData.five_star_stats[index]}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Aptitudes -->
+            <div class="aptitude-section">
+              <h2 class="section-title">Aptitudes</h2>
+              
+              <!-- Superficie -->
+              <div class="aptitude-group">
+                <h3 class="aptitude-group-title">Superficie</h3>
+                <div class="aptitude-grid">
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Césped</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[0]}`}>{umaData.aptitude[0]}</span>
+                  </div>
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Tierra</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[1]}`}>{umaData.aptitude[1]}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Distancia -->
+              <div class="aptitude-group">
+                <h3 class="aptitude-group-title">Distancia</h3>
+                <div class="aptitude-grid">
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Sprint</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[2]}`}>{umaData.aptitude[2]}</span>
+                  </div>
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Milla</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[3]}`}>{umaData.aptitude[3]}</span>
+                  </div>
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Intermedio</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[4]}`}>{umaData.aptitude[4]}</span>
+                  </div>
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Largo</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[5]}`}>{umaData.aptitude[5]}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Estrategia -->
+              <div class="aptitude-group">
+                <h3 class="aptitude-group-title">Estrategia</h3>
+                <div class="aptitude-grid">
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Escape</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[6]}`}>{umaData.aptitude[6]}</span>
+                  </div>
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Líder</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[7]}`}>{umaData.aptitude[7]}</span>
+                  </div>
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Diferido</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[8]}`}>{umaData.aptitude[8]}</span>
+                  </div>
+                  <div class="aptitude-item">
+                    <span class="aptitude-name">Perseguidor</span>
+                    <span class={`aptitude-grade grade-${umaData.aptitude[9]}`}>{umaData.aptitude[9]}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Skills de la Uma Musume -->
+            {umaSkills.length > 0 && (
+              <div class="skills-section">
+                <h2 class="section-title">Skills de la Uma Musume</h2>
+                
+                {/* Skills Base/Innatas */}
+                {(umaData.skills_innate && umaData.skills_innate.length > 0) && (
+                  <div class="skill-category">
+                    <h3 class="skill-category-title">Skills Base/Innatas</h3>
+                    <div class="skills-list">
+                      {umaData.skills_innate.map((skillId: number) => {
+                        const skill = allSkills.find((s: any) => s.id === skillId);
+                        if (!skill) return null;
+                        return (
+                          <div class="skill-item skill-base">
+                            <div class="skill-header">
+                              <div class="skill-name">{skill.name_en || skill.name_jp}</div>
+                              <div class="skill-type-badge skill-type-base">Base</div>
+                            </div>
+                            <div class="skill-desc">{Array.isArray(skill.desc_en) ? skill.desc_en.join(' ') : skill.desc_en}</div>
+                            {(skill.condition_groups && skill.condition_groups.length > 0) ? (
+                              <div class="skill-condition">
+                                <strong>Condiciones de Activación:</strong>
+                                {skill.condition_groups.map((group: any, idx: number) => (
+                                  <div class="condition-group" key={idx}>
+                                    <div class="condition-original">{group.condition}</div>
+                                    <div class="condition-explanation">{parseSkillCondition(group.condition)}</div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : skill.condition ? (
+                              <div class="skill-condition">
+                                <strong>Condición de Activación:</strong>
+                                <div class="condition-original">{skill.condition}</div>
+                                <div class="condition-explanation">{parseSkillCondition(skill.condition)}</div>
+                              </div>
+                            ) : null}
+                            {extractSkillConditions(skill.desc_en).length > 0 && (
+                              <ul class="skill-conditions">
+                                {extractSkillConditions(skill.desc_en).map((cond: any) => (
+                                  <li class="skill-condition-item">
+                                    <strong>{cond.key}:</strong> {cond.description} <span class="skill-condition-meaning">({cond.meaning})</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Skills Únicos */}
+                {(umaData.skills_unique && umaData.skills_unique.length > 0) && (
+                  <div class="skill-category">
+                    <h3 class="skill-category-title">Skills Únicos</h3>
+                    <div class="skills-list">
+                      {umaData.skills_unique.map((skillId: number) => {
+                        const skill = allSkills.find((s: any) => s.id === skillId);
+                        if (!skill) return null;
+                        return (
+                          <div class="skill-item skill-unique">
+                            <div class="skill-header">
+                              <div class="skill-name">{skill.name_en || skill.name_jp}</div>
+                              <div class="skill-type-badge skill-type-unique">Único</div>
+                            </div>
+                            <div class="skill-desc">{Array.isArray(skill.desc_en) ? skill.desc_en.join(' ') : skill.desc_en}</div>
+                            {(skill.condition_groups && skill.condition_groups.length > 0) ? (
+                              <div class="skill-condition">
+                                <strong>Condiciones de Activación:</strong>
+                                {skill.condition_groups.map((group: any, idx: number) => (
+                                  <div class="condition-group" key={idx}>
+                                    <div class="condition-original">{group.condition}</div>
+                                    <div class="condition-explanation">{parseSkillCondition(group.condition)}</div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : skill.condition ? (
+                              <div class="skill-condition">
+                                <strong>Condición de Activación:</strong>
+                                <div class="condition-original">{skill.condition}</div>
+                                <div class="condition-explanation">{parseSkillCondition(skill.condition)}</div>
+                              </div>
+                            ) : null}
+                            {extractSkillConditions(skill.desc_en).length > 0 && (
+                              <ul class="skill-conditions">
+                                {extractSkillConditions(skill.desc_en).map((cond: any) => (
+                                  <li class="skill-condition-item">
+                                    <strong>{cond.key}:</strong> {cond.description} <span class="skill-condition-meaning">({cond.meaning})</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Skills de Despertar */}
+                {(umaData.skills_awakening && umaData.skills_awakening.length > 0) && (
+                  <div class="skill-category">
+                    <h3 class="skill-category-title">Skills de Despertar</h3>
+                    <div class="skills-list">
+                      {umaData.skills_awakening.map((skillId: number) => {
+                        const skill = allSkills.find((s: any) => s.id === skillId);
+                        if (!skill) return null;
+                        return (
+                          <div class="skill-item skill-awakening">
+                            <div class="skill-header">
+                              <div class="skill-name">{skill.name_en || skill.name_jp}</div>
+                              <div class="skill-type-badge skill-type-awakening">Despertar</div>
+                            </div>
+                            <div class="skill-desc">{Array.isArray(skill.desc_en) ? skill.desc_en.join(' ') : skill.desc_en}</div>
+                            {(skill.condition_groups && skill.condition_groups.length > 0) ? (
+                              <div class="skill-condition">
+                                <strong>Condiciones de Activación:</strong>
+                                {skill.condition_groups.map((group: any, idx: number) => (
+                                  <div class="condition-group" key={idx}>
+                                    <div class="condition-original">{group.condition}</div>
+                                    <div class="condition-explanation">{parseSkillCondition(group.condition)}</div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : skill.condition ? (
+                              <div class="skill-condition">
+                                <strong>Condición de Activación:</strong>
+                                <div class="condition-original">{skill.condition}</div>
+                                <div class="condition-explanation">{parseSkillCondition(skill.condition)}</div>
+                              </div>
+                            ) : null}
+                            {extractSkillConditions(skill.desc_en).length > 0 && (
+                              <ul class="skill-conditions">
+                                {extractSkillConditions(skill.desc_en).map((cond: any) => (
+                                  <li class="skill-condition-item">
+                                    <strong>{cond.key}:</strong> {cond.description} <span class="skill-condition-meaning">({cond.meaning})</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Skills de Evento */}
+                {(umaData.skills_event && umaData.skills_event.length > 0) && (
+                  <div class="skill-category">
+                    <h3 class="skill-category-title">Skills de Evento</h3>
+                    <div class="skills-list">
+                      {umaData.skills_event.map((skillId: number) => {
+                        const skill = allSkills.find((s: any) => s.id === skillId);
+                        if (!skill) return null;
+                        return (
+                          <div class="skill-item skill-event">
+                            <div class="skill-header">
+                              <div class="skill-name">{skill.name_en || skill.name_jp}</div>
+                              <div class="skill-type-badge skill-type-event">Evento</div>
+                            </div>
+                            <div class="skill-desc">{Array.isArray(skill.desc_en) ? skill.desc_en.join(' ') : skill.desc_en}</div>
+                            {(skill.condition_groups && skill.condition_groups.length > 0) ? (
+                              <div class="skill-condition">
+                                <strong>Condiciones de Activación:</strong>
+                                {skill.condition_groups.map((group: any, idx: number) => (
+                                  <div class="condition-group" key={idx}>
+                                    <div class="condition-original">{group.condition}</div>
+                                    <div class="condition-explanation">{parseSkillCondition(group.condition)}</div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : skill.condition ? (
+                              <div class="skill-condition">
+                                <strong>Condición de Activación:</strong>
+                                <div class="condition-original">{skill.condition}</div>
+                                <div class="condition-explanation">{parseSkillCondition(skill.condition)}</div>
+                              </div>
+                            ) : null}
+                            {extractSkillConditions(skill.desc_en).length > 0 && (
+                              <ul class="skill-conditions">
+                                {extractSkillConditions(skill.desc_en).map((cond: any) => (
+                                  <li class="skill-condition-item">
+                                    <strong>{cond.key}:</strong> {cond.description} <span class="skill-condition-meaning">({cond.meaning})</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Skills de Evolución */}
+                {(umaData.skills_evo && umaData.skills_evo.length > 0) && (
+                  <div class="skill-category">
+                    <h3 class="skill-category-title">Skills de Evolución</h3>
+                    <div class="skills-list">
+                      {umaData.skills_evo.map((evo: any) => {
+                        const oldSkill = evo.old ? allSkills.find((s: any) => s.id === evo.old) : null;
+                        const newSkill = evo.new ? allSkills.find((s: any) => s.id === evo.new) : null;
+                        return (
+                          <div class="skill-evolution-group">
+                            {oldSkill && (
+                              <div class="skill-item skill-evolution-old">
+                                <div class="skill-header">
+                                  <div class="skill-name">{oldSkill.name_en || oldSkill.name_jp}</div>
+                                  <div class="skill-type-badge skill-type-evolution">Antes</div>
+                                </div>
+                                <div class="skill-desc">{Array.isArray(oldSkill.desc_en) ? oldSkill.desc_en.join(' ') : oldSkill.desc_en}</div>
+                                {(oldSkill.condition_groups && oldSkill.condition_groups.length > 0) ? (
+                                  <div class="skill-condition">
+                                    <strong>Condiciones de Activación:</strong>
+                                    {oldSkill.condition_groups.map((group: any, idx: number) => (
+                                      <div class="condition-group" key={idx}>
+                                        <div class="condition-original">{group.condition}</div>
+                                        <div class="condition-explanation">{parseSkillCondition(group.condition)}</div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : oldSkill.condition ? (
+                                  <div class="skill-condition">
+                                    <strong>Condición de Activación:</strong>
+                                    <div class="condition-original">{oldSkill.condition}</div>
+                                    <div class="condition-explanation">{parseSkillCondition(oldSkill.condition)}</div>
+                                  </div>
+                                ) : null}
+                                {extractSkillConditions(oldSkill.desc_en).length > 0 && (
+                                  <ul class="skill-conditions">
+                                    {extractSkillConditions(oldSkill.desc_en).map((cond: any) => (
+                                      <li class="skill-condition-item">
+                                        <strong>{cond.key}:</strong> {cond.description} <span class="skill-condition-meaning">({cond.meaning})</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                            )}
+                            <div class="evolution-arrow">→</div>
+                            {newSkill && (
+                              <div class="skill-item skill-evolution-new">
+                                <div class="skill-header">
+                                  <div class="skill-name">{newSkill.name_en || newSkill.name_jp}</div>
+                                  <div class="skill-type-badge skill-type-evolution">Después</div>
+                                </div>
+                                <div class="skill-desc">{Array.isArray(newSkill.desc_en) ? newSkill.desc_en.join(' ') : newSkill.desc_en}</div>
+                                {(newSkill.condition_groups && newSkill.condition_groups.length > 0) ? (
+                                  <div class="skill-condition">
+                                    <strong>Condiciones de Activación:</strong>
+                                    {newSkill.condition_groups.map((group: any, idx: number) => (
+                                      <div class="condition-group" key={idx}>
+                                        <div class="condition-original">{group.condition}</div>
+                                        <div class="condition-explanation">{parseSkillCondition(group.condition)}</div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : newSkill.condition ? (
+                                  <div class="skill-condition">
+                                    <strong>Condición de Activación:</strong>
+                                    <div class="condition-original">{newSkill.condition}</div>
+                                    <div class="condition-explanation">{parseSkillCondition(newSkill.condition)}</div>
+                                  </div>
+                                ) : null}
+                                {extractSkillConditions(newSkill.desc_en).length > 0 && (
+                                  <ul class="skill-conditions">
+                                    {extractSkillConditions(newSkill.desc_en).map((cond: any) => (
+                                      <li class="skill-condition-item">
+                                        <strong>{cond.key}:</strong> {cond.description} <span class="skill-condition-meaning">({cond.meaning})</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <!-- Objetivos -->
+            <div class="objectives-section">
+              <h2 class="section-title">Objetivos de Escenario</h2>
+              <div class="objectives-list">
+                {umaData.objectives.map((objective: any, index: number) => (
+                  <div class="objective-item">
+                    <div class="objective-header">
+                      <span class="objective-order">#{objective.order}</span>
+                      <span class="objective-turn">Turno {objective.turn}</span>
+                      {objective.turns_break && (
+                        <span class="objective-break">+{objective.turns_break} turnos</span>
+                      )}
+                    </div>
+                    
+                    {objective.races && objective.races.length > 0 && (
+                      <div class="objective-races">
+                        {objective.races.map((race) => {
+                          const raceRecommendation = getRaceRecommendation(race, umaData.aptitude, umaData.base_stats, raceTracksData);
+                          return (
+                            <div class="race-info">
+                              <div class="race-name">{race.name_en}</div>
+                              <div class="race-details">
+                                <span class="race-grade">G{race.grade === 100 ? 'I' : race.grade === 200 ? 'II' : race.grade === 300 ? 'III' : race.grade}</span>
+                                <span class="race-distance">{race.distance}m</span>
+                                <span class="race-terrain">{race.terrain === 1 ? 'Césped' : 'Tierra'}</span>
+                                {race.fans_needed > 0 && (
+                                  <span class="race-fans">Fans: {race.fans_needed.toLocaleString()}</span>
+                                )}
+                              </div>
+                              {race.name_jp && race.name_jp !== race.name_en && (
+                                <div class="race-name-jp">{race.name_jp}</div>
+                              )}
+                              
+                              <!-- Recomendación específica para esta carrera -->
+                              <div class="race-recommendation">
+                                <div class="recommendation-aptitudes">
+                                  <div class="aptitude-info">
+                                    <span class="aptitude-label">Superficie:</span>
+                                    <span class="aptitude-value">{raceRecommendation.surface.type} (Aptitud: {raceRecommendation.surface.apt})</span>
+                                  </div>
+                                  <div class="aptitude-info">
+                                    <span class="aptitude-label">Distancia:</span>
+                                    <span class="aptitude-value">{raceRecommendation.distance.type} (Aptitud: {raceRecommendation.distance.apt})</span>
+                                  </div>
+                                </div>
+                                <div class="recommendation-text">
+                                  <strong>Recomendación:</strong> {raceRecommendation.recommendation}
+                                </div>
+                                
+                                {raceRecommendation.statRequirements.length > 0 && (
+                                  <div class="stat-requirements">
+                                    <div class="requirements-title">
+                                      <strong>Requisitos de Stats:</strong>
+                                    </div>
+                                    <div class="requirements-list">
+                                      {raceRecommendation.statRequirements.map((req, reqIndex) => (
+                                        <div class="requirement-item">
+                                          <span class="requirement-icon">{req.icon}</span>
+                                          <span class="requirement-name">{req.name}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                    
+                    {objective.alternatives && objective.alternatives.length > 0 && (
+                      <div class="objective-alternatives">
+                        <span class="alternatives-label">Alternativas:</span>
+                        {objective.alternatives.map((alt) => (
+                          <div class="alternative-race">
+                            {alt.races && alt.races.map((race) => (
+                              <div class="race-info alternative">
+                                <div class="race-name">{race.name_en}</div>
+                                <div class="race-details">
+                                  <span class="race-grade">G{race.grade === 100 ? 'I' : race.grade === 200 ? 'II' : race.grade === 300 ? 'III' : race.grade}</span>
+                                  <span class="race-distance">{race.distance}m</span>
+                                  <span class="race-terrain">{race.terrain === 1 ? 'Césped' : 'Tierra'}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Recomendaciones -->
+            {recommendations.length > 0 && (
+              <div class="recommendations-section">
+                <h2 class="section-title">Recomendaciones de Entrenamiento para este Escenario</h2>
+                <div class="recommendations-list">
+                  {recommendations.map((rec, index) => (
+                    <div class={`recommendation-item priority-${rec.priority}`}>
+                      <div class="recommendation-header">
+                        {rec.icon && <span class="recommendation-icon">{rec.icon}</span>}
+                        <span class="recommendation-title">{rec.title}</span>
+                        <span class={`priority-badge priority-${rec.priority}`}>
+                          {rec.priority === 'high' ? 'Alta' : rec.priority === 'medium' ? 'Media' : 'Baja'}
+                        </span>
+                      </div>
+                      <p class="recommendation-description">{rec.description}</p>
+                      <div class="recommendation-meta">
+                        <span class="recommendation-type">{rec.type}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                {recommendations.length > 0 && (
+                  <div class="recommendations-summary">
+                    <h3>Resumen de Estrategia</h3>
+                    <p>
+                      Este análisis se basa en {umaData.objectives.length} objetivos del escenario, 
+                      evaluando factores específicos, características de pistas y requerimientos técnicos 
+                      para optimizar el entrenamiento de esta Uma Musume.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )}
+  </main>
+</Layout>
+
+<style>
+  .detail-page {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  .back-button {
+    background: #6b7280;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: background 0.2s;
+  }
+
+  .back-button:hover {
+    background: #4b5563;
+  }
+
+  .detail-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e40af;
+  }
+
+  .detail-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+  }
+
+  .detail-image-container {
+    position: relative;
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+  }
+
+  .detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .detail-rarity {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 0.5rem;
+  }
+
+  .basic-info {
+    margin-top: 1.5rem;
+  }
+
+  .info-grid {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: rgba(59, 130, 246, 0.05);
+    border-radius: 6px;
+  }
+
+  .info-label {
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .info-value {
+    color: #1f2937;
+  }
+
+  .profile-section {
+    margin-bottom: 2rem;
+  }
+
+  .tagline {
+    font-style: italic;
+    color: #6b7280;
+    margin-bottom: 1rem;
+  }
+
+  .intro {
+    line-height: 1.6;
+    color: #374151;
+  }
+
+  .stats-section {
+    margin-bottom: 2rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .stat-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+  }
+
+  .stat-name {
+    font-weight: 600;
+    color: #1f2937;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-bars {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .stat-bar {
+    display: grid;
+    grid-template-columns: 3rem 1fr 3rem;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.75rem;
+  }
+
+  .stat-label {
+    font-weight: 500;
+    color: #6b7280;
+  }
+
+  .stat-bar-bg {
+    background: #f3f4f6;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    background: #3b82f6;
+    transition: width 0.3s ease;
+  }
+
+  .stat-bar-fill-4star {
+    background: #8b5cf6;
+  }
+
+  .stat-bar-fill-5star {
+    background: #f59e0b;
+  }
+
+  .stat-value {
+    text-align: right;
+    font-weight: 500;
+  }
+
+  .aptitude-section {
+    margin-bottom: 2rem;
+  }
+
+  .aptitude-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .aptitude-group-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .aptitude-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .aptitude-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+  }
+
+  .aptitude-name {
+    font-size: 0.875rem;
+    color: #374151;
+  }
+
+  .aptitude-grade {
+    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+
+  .grade-A { background: #10b981; color: white; }
+  .grade-B { background: #3b82f6; color: white; }
+  .grade-C { background: #f59e0b; color: white; }
+  .grade-D { background: #ef4444; color: white; }
+  .grade-E { background: #6b7280; color: white; }
+  .grade-F { background: #374151; color: white; }
+  .grade-G { background: #1f2937; color: white; }
+
+  /* Objetivos */
+  .objectives-section {
+    margin-bottom: 2rem;
+  }
+
+  .objectives-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .objective-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .objective-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .objective-order {
+    background: #3b82f6;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+
+  .objective-turn {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .objective-break {
+    background: #f59e0b;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .objective-races {
+    margin-bottom: 0.5rem;
+  }
+
+  .race-info {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .race-info.alternative {
+    background: #fef3cd;
+    border-color: #f59e0b;
+  }
+
+  .race-name {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+  }
+
+  .race-name-jp {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .race-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .race-grade {
+    background: #dc2626;
+    color: white;
+    padding: 0.125rem 0.375rem;
+    border-radius: 3px;
+    font-weight: bold;
+  }
+
+  .race-distance {
+    background: #059669;
+    color: white;
+    padding: 0.125rem 0.375rem;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  .race-terrain {
+    background: #7c2d12;
+    color: white;
+    padding: 0.125rem 0.375rem;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  .race-fans {
+    background: #6366f1;
+    color: white;
+    padding: 0.125rem 0.375rem;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  .objective-alternatives {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .alternatives-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.875rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .alternative-race {
+    margin-left: 1rem;
+  }
+
+  .race-recommendation {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+  }
+
+  .recommendation-aptitudes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .aptitude-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 4px;
+  }
+
+  .aptitude-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.875rem;
+  }
+
+  .aptitude-value {
+    color: #1f2937;
+    font-size: 0.875rem;
+  }
+
+  .recommendation-text {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 0.75rem;
+  }
+
+  .stat-requirements {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 6px;
+    padding: 0.75rem;
+    border: 1px solid #f59e0b;
+  }
+
+  .requirements-title {
+    color: #92400e;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .requirements-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #f59e0b;
+  }
+
+  .requirement-icon {
+    font-size: 1rem;
+  }
+
+  .requirement-name {
+    color: #92400e;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .not-found {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  /* Estilos para las recomendaciones */
+  .recommendations-section {
+    background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border: 1px solid #e2e8f0;
+  }
+
+  .recommendations-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .recommendation-item {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    border-left: 4px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .recommendation-item:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .recommendation-item.priority-high {
+    border-left-color: #ef4444;
+    background: linear-gradient(to right, rgba(239, 68, 68, 0.05), white);
+  }
+
+  .recommendation-item.priority-medium {
+    border-left-color: #f59e0b;
+    background: linear-gradient(to right, rgba(245, 158, 11, 0.05), white);
+  }
+
+  .recommendation-item.priority-low {
+    border-left-color: #10b981;
+    background: linear-gradient(to right, rgba(16, 185, 129, 0.05), white);
+  }
+
+  .recommendation-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .recommendation-icon {
+    font-size: 1.25rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 50%;
+  }
+
+  .recommendation-title {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 1rem;
+    flex: 1;
+  }
+
+  .priority-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  .priority-badge.priority-high {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+  }
+
+  .priority-badge.priority-medium {
+    background: #fffbeb;
+    color: #d97706;
+    border: 1px solid #fed7aa;
+  }
+
+  .priority-badge.priority-low {
+    background: #f0fdf4;
+    color: #059669;
+    border: 1px solid #bbf7d0;
+  }
+
+  .recommendation-description {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0.5rem 0;
+  }
+
+  .recommendation-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+  }
+
+  .recommendation-type {
+    display: inline-block;
+    background: #f3f4f6;
+    color: #6b7280;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+
+  .recommendations-summary {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    color: white;
+  }
+
+  .recommendations-summary h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .recommendations-summary p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  /* Estilos para la sección de skills */
+  .skills-section {
+    margin-bottom: 2rem;
+  }
+
+  .skill-category {
+    margin-bottom: 2rem;
+  }
+
+  .skill-category-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  .skills-list {
+    display: grid;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .skill-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .skill-item:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .skill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .skill-name {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 1rem;
+  }
+
+  .skill-type-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  .skill-type-base {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+  }
+
+  .skill-type-unique {
+    background: #fef3c7;
+    color: #d97706;
+    border: 1px solid #fbbf24;
+  }
+
+  .skill-type-awakening {
+    background: #fce7f3;
+    color: #be185d;
+    border: 1px solid #f9a8d4;
+  }
+
+  .skill-type-event {
+    background: #dcfce7;
+    color: #059669;
+    border: 1px solid #86efac;
+  }
+
+  .skill-type-evolution {
+    background: #f3e8ff;
+    color: #7c3aed;
+    border: 1px solid #c4b5fd;
+  }
+
+  .skill-desc {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-condition {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: #374151;
+    font-size: 0.85rem;
+  }
+
+  .condition-original {
+    background: #1f2937;
+    color: #f3f4f6;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+    word-break: break-all;
+  }
+
+  .condition-explanation {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .skill-conditions {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    list-style: none;
+  }
+
+  .skill-condition-item {
+    color: #92400e;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+  }
+
+  .skill-condition-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .skill-condition-meaning {
+    color: #d97706;
+    font-style: italic;
+  }
+
+  /* Estilos para skills de evolución */
+  .skill-evolution-group {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .skill-evolution-old {
+    background: #fef2f2;
+    border-color: #fecaca;
+  }
+
+  .skill-evolution-new {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+  }
+
+  .evolution-arrow {
+    font-size: 1.5rem;
+    color: #6b7280;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .detail-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .detail-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .recommendation-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .recommendation-title {
+      font-size: 0.9rem;
+    }
+
+    .recommendations-section {
+      padding: 1rem;
+    }
+
+    .recommendation-aptitudes {
+      grid-template-columns: 1fr;
+    }
+
+    .race-recommendation {
+      padding: 0.75rem;
+    }
+
+    .skill-item {
+      padding: 0.75rem;
+    }
+
+    .skill-name {
+      font-size: 0.9rem;
+    }
+
+    .skill-desc {
+      font-size: 0.85rem;
+    }
+
+    .skill-evolution-group {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .evolution-arrow {
+      transform: rotate(90deg);
+    }
+  }
+</style>

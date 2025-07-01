@@ -1,11 +1,183 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import fs from "fs";
+import path from "path";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Leer los archivos JSON de las Uma Musume desde la carpeta DB
+const umasPath = path.join(process.cwd(), ".", "DB", "UMAS");
+const umaFiles = fs
+  .readdirSync(umasPath)
+  .filter((file) => file.endsWith(".json"));
+
+// Cargar datos de todas las Uma Musume
+const umas = [];
+for (let i = 0; i < umaFiles.length; i++) {
+  const filePath = path.join(umasPath, umaFiles[i]);
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+
+  if (data.pageProps && data.pageProps.itemData) {
+    const itemData = data.pageProps.itemData;
+    const charData = data.pageProps.charData;
+    const profileData = data.pageProps.profileData;
+
+    // Construir la ruta de la imagen basada en el char_id y card_id
+    const imageName = `chara_stand_${itemData.char_id}_${itemData.card_id}.png`;
+    const imagePath = `/image/${imageName}`;
+
+    umas.push({
+      id: itemData.card_id,
+      name: itemData.name_en || itemData.name_jp,
+      title: itemData.title,
+      rarity: itemData.rarity,
+      url_name: itemData.url_name,
+      char_name: charData?.en_name || charData?.jp_name,
+      intro: profileData?.en?.self_intro || profileData?.ja?.self_intro,
+      tagline: profileData?.en?.tagline || profileData?.ja?.tagline,
+      filename: umaFiles[i],
+      imagePath: imagePath,
+    });
+  }
+}
 ---
 
 <Layout>
-	<Welcome />
+  <main class="container">
+    <header class="header">
+      <h1 class="title">Uma Musume Database</h1>
+      <p class="subtitle">Selecciona una Uma Musume para ver sus detalles</p>
+    </header>
+
+    <!-- Filtros -->
+    <div class="filters">
+      <div class="filter-group">
+        <label for="search" class="filter-label">Buscar por nombre:</label>
+        <input
+          type="text"
+          id="search"
+          class="filter-input"
+          placeholder="Escribe el nombre..."
+        />
+      </div>
+
+      <div class="filter-group">
+        <label for="rarity" class="filter-label">Filtrar por rareza:</label>
+        <select id="rarity" class="filter-select">
+          <option value="">Todas las rarezas</option>
+          <option value="1">★1</option>
+          <option value="2">★2</option>
+          <option value="3">★3</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Acciones:</label>
+        <button id="clear-filters" class="clear-button">Limpiar filtros</button>
+      </div>
+    </div>
+
+    <div class="grid" id="uma-grid">
+      <!-- Las tarjetas se generarán dinámicamente con JavaScript -->
+    </div>
+
+    {
+      umas.length === 0 && (
+        <div class="empty-state">
+          <p>No se encontraron archivos de Uma Musume</p>
+        </div>
+      )
+    }
+  </main>
 </Layout>
+
+<script define:vars={{ umas }}>
+  // Datos de todas las Uma Musume para filtrar
+  let allUmas = umas;
+  let filteredUmas = [...allUmas];
+
+  // Elementos del DOM
+  const searchInput = document.getElementById("search");
+  const raritySelect = document.getElementById("rarity");
+  const clearButton = document.getElementById("clear-filters");
+  const umaGrid = document.getElementById("uma-grid");
+
+  // Función para renderizar las tarjetas
+  function renderUmas(umasToRender) {
+    if (umasToRender.length === 0) {
+      umaGrid.innerHTML =
+        '<div class="empty-state"><p>No se encontraron Uma Musume con esos filtros</p></div>';
+      return;
+    }
+
+    umaGrid.innerHTML = umasToRender
+      .map(
+        (uma) => `
+      <div class="card">
+        <div class="card-header">
+          <img 
+            src="${uma.imagePath}" 
+            alt="${uma.name}"
+            class="card-image"
+            loading="lazy"
+          />
+          <div class="card-title-overlay">
+            <div style="font-size: 0.875rem; font-weight: bold; margin-bottom: 0.5rem;">
+              ${uma.title}
+            </div>
+            <div style="font-size: 1.125rem; font-weight: bold;">
+              ${uma.name}
+            </div>
+          </div>
+          <div class="rarity-badge">★${uma.rarity}</div>
+        </div>
+
+        <div class="card-content">
+          <h3 class="card-title">${uma.name}</h3>
+          <p class="card-tagline">${uma.tagline || ""}</p>
+          <p class="card-intro">${uma.intro || ""}</p>
+
+          <div class="card-footer">
+            <span class="card-id">ID: ${uma.id}</span>
+            <button class="button" onclick="window.location.href='/uma/${uma.id}'">Ver Detalles</button>
+          </div>
+        </div>
+      </div>
+    `
+      )
+      .join("");
+  }
+
+  // Función para aplicar filtros
+  function applyFilters() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    const selectedRarity = raritySelect.value;
+
+    filteredUmas = allUmas.filter((uma) => {
+      // Filtro por nombre
+      const matchesName =
+        !searchTerm ||
+        uma.name.toLowerCase().includes(searchTerm) ||
+        (uma.char_name && uma.char_name.toLowerCase().includes(searchTerm));
+
+      // Filtro por rareza
+      const matchesRarity =
+        !selectedRarity || uma.rarity.toString() === selectedRarity;
+
+      return matchesName && matchesRarity;
+    });
+
+    renderUmas(filteredUmas);
+  }
+
+  // Event listeners
+  searchInput.addEventListener("input", applyFilters);
+  raritySelect.addEventListener("change", applyFilters);
+
+  clearButton.addEventListener("click", () => {
+    searchInput.value = "";
+    raritySelect.value = "";
+    applyFilters();
+  });
+
+  // Renderizar todas las Uma Musume inicialmente
+  renderUmas(allUmas);
+</script>

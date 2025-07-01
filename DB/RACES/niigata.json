@@ -1,0 +1,2998 @@
+{
+    "pageProps": {
+        "racetrackId": "10003",
+        "racetrackUrlName": "niigata",
+        "racetrackDataNew": {
+            "id": "10003",
+            "courses": [
+                {
+                    "id": 10301,
+                    "length": 1000,
+                    "distance": 1,
+                    "terrain": 1,
+                    "inout": 1,
+                    "turn": 4,
+                    "statThresholds": [
+                        3
+                    ],
+                    "positionKeepEnd": 417,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 167
+                        },
+                        {
+                            "id": 1,
+                            "start": 167,
+                            "end": 667
+                        },
+                        {
+                            "id": 2,
+                            "start": 667,
+                            "end": 833
+                        },
+                        {
+                            "id": 3,
+                            "start": 833,
+                            "end": 1000
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 667,
+                        "location": [
+                            "straight",
+                            "final_straight"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 1000,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [
+                        {
+                            "start": 0,
+                            "end": 240,
+                            "slope": 10000
+                        },
+                        {
+                            "start": 240,
+                            "end": 300,
+                            "slope": -10000
+                        }
+                    ],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1000
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 304201,
+                            "url_name": "ibis-summer-dash",
+                            "name_jp": "アイビスサマーダッシュ",
+                            "name_en": "Ibis Summer Dash",
+                            "name_ko": "이비스 서머 대시",
+                            "name_tw": "朱鷺夏季短途賽",
+                            "list_ura": [
+                                "102",
+                                "102_2"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1000,
+                            "terrain": 1,
+                            "direction": 4,
+                            "course": 1,
+                            "entries": 18,
+                            "race_id": 3042,
+                            "course_id": 10301,
+                            "banner_id": 3042,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 405501,
+                            "url_name": "idaten-stakes",
+                            "name_jp": "韋駄天ステークス",
+                            "name_en": "Idaten Stakes",
+                            "name_ko": "위타천 스테이크스",
+                            "name_tw": "韋馱天錦標賽",
+                            "list_ura": [
+                                "70"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1000,
+                            "terrain": 1,
+                            "direction": 4,
+                            "course": 1,
+                            "entries": 18,
+                            "race_id": 4055,
+                            "course_id": 10301,
+                            "banner_id": 4055,
+                            "time": 2,
+                            "season": 1
+                        },
+                        {
+                            "id": 410101,
+                            "url_name": "lumiere-autumn-dash",
+                            "name_jp": "ルミエールオータムダッシュ",
+                            "name_en": "Lumiere Autumn Dash",
+                            "name_ko": "루미에르 오텀 대시",
+                            "name_tw": "光芒秋季短途賽",
+                            "list_ura": [
+                                "148",
+                                "148_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1000,
+                            "terrain": 1,
+                            "direction": 4,
+                            "course": 1,
+                            "entries": 18,
+                            "race_id": 4101,
+                            "course_id": 10301,
+                            "banner_id": 4101,
+                            "time": 2,
+                            "season": 3
+                        }
+                    ]
+                },
+                {
+                    "id": 10302,
+                    "length": 1200,
+                    "distance": 1,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 500,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 200
+                        },
+                        {
+                            "id": 1,
+                            "start": 200,
+                            "end": 800
+                        },
+                        {
+                            "id": 2,
+                            "start": 800,
+                            "end": 1000
+                        },
+                        {
+                            "id": 3,
+                            "start": 1000,
+                            "end": 1200
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 800,
+                        "location": [
+                            "corner",
+                            "final_corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 450,
+                            "end": 650
+                        },
+                        {
+                            "number": 4,
+                            "start": 650,
+                            "end": 842
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 450,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 842,
+                            "end": 1200,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1200
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 103201,
+                            "url_name": "sprinters-stakes",
+                            "name_jp": "スプリンターズステークス",
+                            "name_en": "Sprinters Stakes",
+                            "name_ko": "스프린터스 스테이크스",
+                            "list_ura": [],
+                            "grade": 100,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1200,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 2,
+                            "entries": 16,
+                            "race_id": 1032,
+                            "course_id": 10302,
+                            "banner_id": 1013,
+                            "time": 2,
+                            "season": 3,
+                            "factor": {
+                                "effect_1": "根幹距離○",
+                                "effect_2": "speed"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": 10303,
+                    "length": 1400,
+                    "distance": 2,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 583,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 233
+                        },
+                        {
+                            "id": 1,
+                            "start": 233,
+                            "end": 933
+                        },
+                        {
+                            "id": 2,
+                            "start": 933,
+                            "end": 1167
+                        },
+                        {
+                            "id": 3,
+                            "start": 1167,
+                            "end": 1400
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 933,
+                        "location": [
+                            "corner",
+                            "final_corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 650,
+                            "end": 850
+                        },
+                        {
+                            "number": 4,
+                            "start": 850,
+                            "end": 1042
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 650,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1042,
+                            "end": 1400,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1400
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 407001,
+                            "url_name": "dahlia-sho",
+                            "name_jp": "ダリア賞",
+                            "name_en": "Dahlia Sho",
+                            "name_ko": "달리아상",
+                            "name_tw": "大麗花賞",
+                            "list_ura": [
+                                "638"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1400,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 2,
+                            "entries": 18,
+                            "race_id": 4070,
+                            "course_id": 10303,
+                            "banner_id": 4070,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 408101,
+                            "url_name": "toki-stakes",
+                            "name_jp": "朱鷺ステークス",
+                            "name_en": "Toki Stakes",
+                            "name_ko": "따오기 스테이크스",
+                            "name_tw": "朱鷺錦標賽",
+                            "list_ura": [
+                                "136",
+                                "136_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1400,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 2,
+                            "entries": 18,
+                            "race_id": 4081,
+                            "course_id": 10303,
+                            "banner_id": 4081,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 409501,
+                            "url_name": "shinetsu-stakes",
+                            "name_jp": "信越ステークス",
+                            "name_en": "Shinetsu Stakes",
+                            "name_ko": "신에츠 스테이크스",
+                            "name_tw": "信越錦標賽",
+                            "list_ura": [
+                                "144",
+                                "144_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1400,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 2,
+                            "entries": 18,
+                            "race_id": 4095,
+                            "course_id": 10303,
+                            "banner_id": 4095,
+                            "time": 2,
+                            "season": 3
+                        }
+                    ]
+                },
+                {
+                    "id": 10304,
+                    "length": 1600,
+                    "distance": 2,
+                    "terrain": 1,
+                    "inout": 3,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 667,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 267
+                        },
+                        {
+                            "id": 1,
+                            "start": 267,
+                            "end": 1067
+                        },
+                        {
+                            "id": 2,
+                            "start": 1067,
+                            "end": 1333
+                        },
+                        {
+                            "id": 3,
+                            "start": 1333,
+                            "end": 1600
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1067,
+                        "location": [
+                            "straight",
+                            "final_straight"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 550,
+                            "end": 750
+                        },
+                        {
+                            "number": 4,
+                            "start": 750,
+                            "end": 942
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 550,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 942,
+                            "end": 1600,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [
+                        {
+                            "start": 250,
+                            "end": 600,
+                            "slope": 10000
+                        },
+                        {
+                            "start": 600,
+                            "end": 900,
+                            "slope": -15000
+                        }
+                    ],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1600
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 304601,
+                            "url_name": "sekiya-kinen",
+                            "name_jp": "関屋記念",
+                            "name_en": "Sekiya Kinen",
+                            "name_ko": "세키야 기념",
+                            "name_tw": "關屋紀念",
+                            "list_ura": [
+                                "105",
+                                "105_2"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1600,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 3046,
+                            "course_id": 10304,
+                            "banner_id": 3046,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 304901,
+                            "url_name": "niigata-junior-stakes",
+                            "name_jp": "新潟ジュニアステークス",
+                            "name_en": "Niigata Junior Stakes",
+                            "name_ko": "니이가타 주니어 스테이크스",
+                            "name_tw": "新潟新手級錦標賽",
+                            "list_ura": [
+                                "629"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1600,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 3049,
+                            "course_id": 10304,
+                            "banner_id": 3049,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 404401,
+                            "url_name": "tanigawadake-stakes",
+                            "name_jp": "谷川岳ステークス",
+                            "name_en": "Tanigawadake Stakes",
+                            "name_ko": "타니가와다케 스테이크스",
+                            "name_tw": "谷川岳錦標賽",
+                            "list_ura": [
+                                "63"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1600,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 4044,
+                            "course_id": 10304,
+                            "banner_id": 4044,
+                            "time": 2,
+                            "season": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 10305,
+                    "length": 1800,
+                    "distance": 2,
+                    "terrain": 1,
+                    "inout": 3,
+                    "turn": 2,
+                    "statThresholds": [
+                        3
+                    ],
+                    "positionKeepEnd": 750,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 300
+                        },
+                        {
+                            "id": 1,
+                            "start": 300,
+                            "end": 1200
+                        },
+                        {
+                            "id": 2,
+                            "start": 1200,
+                            "end": 1500
+                        },
+                        {
+                            "id": 3,
+                            "start": 1500,
+                            "end": 1800
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1200,
+                        "location": [
+                            "straight",
+                            "final_straight"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 750,
+                            "end": 950
+                        },
+                        {
+                            "number": 4,
+                            "start": 950,
+                            "end": 1142
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 750,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1142,
+                            "end": 1800,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [
+                        {
+                            "start": 450,
+                            "end": 800,
+                            "slope": 10000
+                        },
+                        {
+                            "start": 800,
+                            "end": 1100,
+                            "slope": -15000
+                        }
+                    ],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1800
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 412201,
+                            "url_name": "kanetsu-stakes",
+                            "name_jp": "関越ステークス",
+                            "name_en": "Kanetsu Stakes",
+                            "name_ko": "간에츠 스테이크스",
+                            "name_tw": "關越錦標賽",
+                            "list_ura": [
+                                "1061",
+                                "1061_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1800,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 4122,
+                            "course_id": 10305,
+                            "banner_id": 4121,
+                            "time": 2,
+                            "season": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 10306,
+                    "length": 2000,
+                    "distance": 3,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [
+                        2,
+                        3
+                    ],
+                    "positionKeepEnd": 833,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 333
+                        },
+                        {
+                            "id": 1,
+                            "start": 333,
+                            "end": 1333
+                        },
+                        {
+                            "id": 2,
+                            "start": 1333,
+                            "end": 1667
+                        },
+                        {
+                            "id": 3,
+                            "start": 1667,
+                            "end": 2000
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1333,
+                        "location": [
+                            "corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 1,
+                            "start": 420,
+                            "end": 620
+                        },
+                        {
+                            "number": 2,
+                            "start": 620,
+                            "end": 820
+                        },
+                        {
+                            "number": 3,
+                            "start": 1250,
+                            "end": 1450
+                        },
+                        {
+                            "number": 4,
+                            "start": 1450,
+                            "end": 1642
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 420,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 820,
+                            "end": 1250,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1642,
+                            "end": 2000,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1654
+                        },
+                        {
+                            "lap": 2,
+                            "start": 1654,
+                            "end": 2000
+                        }
+                    ],
+                    "overlaps": [
+                        "02",
+                        "03",
+                        "13"
+                    ],
+                    "races": []
+                },
+                {
+                    "id": 10307,
+                    "length": 2000,
+                    "distance": 3,
+                    "terrain": 1,
+                    "inout": 3,
+                    "turn": 2,
+                    "statThresholds": [
+                        2,
+                        3
+                    ],
+                    "positionKeepEnd": 833,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 333
+                        },
+                        {
+                            "id": 1,
+                            "start": 333,
+                            "end": 1333
+                        },
+                        {
+                            "id": 2,
+                            "start": 1333,
+                            "end": 1667
+                        },
+                        {
+                            "id": 3,
+                            "start": 1667,
+                            "end": 2000
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1333,
+                        "location": [
+                            "corner",
+                            "final_corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 950,
+                            "end": 1150
+                        },
+                        {
+                            "number": 4,
+                            "start": 1150,
+                            "end": 1342
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 950,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1342,
+                            "end": 2000,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [
+                        {
+                            "start": 650,
+                            "end": 1000,
+                            "slope": 10000
+                        },
+                        {
+                            "start": 1000,
+                            "end": 1300,
+                            "slope": -15000
+                        }
+                    ],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 2000
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 302801,
+                            "url_name": "niigata-daishoten",
+                            "name_jp": "新潟大賞典",
+                            "name_en": "Niigata Daishoten",
+                            "name_ko": "니이가타 대상전",
+                            "name_tw": "新潟大賞典",
+                            "list_ura": [
+                                "34"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 2000,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 3028,
+                            "course_id": 10307,
+                            "banner_id": 3028,
+                            "time": 2,
+                            "season": 1
+                        },
+                        {
+                            "id": 305301,
+                            "url_name": "niigata-kinen",
+                            "name_jp": "新潟記念",
+                            "name_en": "Niigata Kinen",
+                            "name_ko": "니이가타 기념",
+                            "name_tw": "新潟紀念",
+                            "list_ura": [
+                                "109",
+                                "109_2"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 2000,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 3053,
+                            "course_id": 10307,
+                            "banner_id": 3053,
+                            "time": 2,
+                            "season": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 10308,
+                    "length": 2200,
+                    "distance": 3,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [
+                        1
+                    ],
+                    "positionKeepEnd": 917,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 367
+                        },
+                        {
+                            "id": 1,
+                            "start": 367,
+                            "end": 1467
+                        },
+                        {
+                            "id": 2,
+                            "start": 1467,
+                            "end": 1833
+                        },
+                        {
+                            "id": 3,
+                            "start": 1833,
+                            "end": 2200
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1467,
+                        "location": [
+                            "corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 1,
+                            "start": 650,
+                            "end": 850
+                        },
+                        {
+                            "number": 2,
+                            "start": 850,
+                            "end": 1050
+                        },
+                        {
+                            "number": 3,
+                            "start": 1450,
+                            "end": 1650
+                        },
+                        {
+                            "number": 4,
+                            "start": 1650,
+                            "end": 1842
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 650,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 1050,
+                            "end": 1450,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1842,
+                            "end": 2200,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1833
+                        },
+                        {
+                            "lap": 2,
+                            "start": 1833,
+                            "end": 2200
+                        }
+                    ],
+                    "overlaps": [
+                        "03",
+                        "13"
+                    ],
+                    "races": []
+                },
+                {
+                    "id": 10309,
+                    "length": 2400,
+                    "distance": 3,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 1000,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 400
+                        },
+                        {
+                            "id": 1,
+                            "start": 400,
+                            "end": 1600
+                        },
+                        {
+                            "id": 2,
+                            "start": 1600,
+                            "end": 2000
+                        },
+                        {
+                            "id": 3,
+                            "start": 2000,
+                            "end": 2400
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1600,
+                        "location": [
+                            "straight"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 1,
+                            "start": 810,
+                            "end": 1010
+                        },
+                        {
+                            "number": 2,
+                            "start": 1010,
+                            "end": 1210
+                        },
+                        {
+                            "number": 3,
+                            "start": 1650,
+                            "end": 1850
+                        },
+                        {
+                            "number": 4,
+                            "start": 1850,
+                            "end": 2042
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 810,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 1210,
+                            "end": 1650,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 2042,
+                            "end": 2400,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 2030
+                        },
+                        {
+                            "lap": 2,
+                            "start": 2030,
+                            "end": 2400
+                        }
+                    ],
+                    "overlaps": [
+                        "03",
+                        "13"
+                    ],
+                    "races": []
+                },
+                {
+                    "id": 10310,
+                    "length": 1200,
+                    "distance": 1,
+                    "terrain": 2,
+                    "inout": 1,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 500,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 200
+                        },
+                        {
+                            "id": 1,
+                            "start": 200,
+                            "end": 800
+                        },
+                        {
+                            "id": 2,
+                            "start": 800,
+                            "end": 1000
+                        },
+                        {
+                            "id": 3,
+                            "start": 1000,
+                            "end": 1200
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 800,
+                        "location": [
+                            "corner",
+                            "final_corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 540,
+                            "end": 700
+                        },
+                        {
+                            "number": 4,
+                            "start": 700,
+                            "end": 847
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 540,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 847,
+                            "end": 1200,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [
+                        {
+                            "start": 0,
+                            "terrain": 1
+                        },
+                        {
+                            "start": 60,
+                            "terrain": 2
+                        }
+                    ],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1200
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 407601,
+                            "url_name": "nst-sho",
+                            "name_jp": "NST賞",
+                            "name_en": "NST Sho",
+                            "name_ko": "NST상",
+                            "name_tw": "NST賞",
+                            "list_ura": [
+                                "133",
+                                "133_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1200,
+                            "terrain": 2,
+                            "direction": 2,
+                            "course": 1,
+                            "entries": 15,
+                            "race_id": 4076,
+                            "course_id": 10310,
+                            "banner_id": 4076,
+                            "time": 2,
+                            "season": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 10311,
+                    "length": 1800,
+                    "distance": 2,
+                    "terrain": 2,
+                    "inout": 1,
+                    "turn": 2,
+                    "statThresholds": [
+                        5
+                    ],
+                    "positionKeepEnd": 750,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 300
+                        },
+                        {
+                            "id": 1,
+                            "start": 300,
+                            "end": 1200
+                        },
+                        {
+                            "id": 2,
+                            "start": 1200,
+                            "end": 1500
+                        },
+                        {
+                            "id": 3,
+                            "start": 1500,
+                            "end": 1800
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1200,
+                        "location": [
+                            "corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 1,
+                            "start": 400,
+                            "end": 560
+                        },
+                        {
+                            "number": 2,
+                            "start": 560,
+                            "end": 720
+                        },
+                        {
+                            "number": 3,
+                            "start": 1140,
+                            "end": 1300
+                        },
+                        {
+                            "number": 4,
+                            "start": 1300,
+                            "end": 1447
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 400,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 720,
+                            "end": 1140,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1447,
+                            "end": 1800,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1481
+                        },
+                        {
+                            "lap": 2,
+                            "start": 1481,
+                            "end": 1800
+                        }
+                    ],
+                    "overlaps": [
+                        "02",
+                        "03",
+                        "13"
+                    ],
+                    "races": [
+                        {
+                            "id": 304501,
+                            "url_name": "leopard-stakes",
+                            "name_jp": "レパードステークス",
+                            "name_en": "Leopard Stakes",
+                            "name_ko": "레오파드 스테이크스",
+                            "name_tw": "獵豹錦標賽",
+                            "list_ura": [
+                                "191"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1800,
+                            "terrain": 2,
+                            "direction": 2,
+                            "course": 1,
+                            "entries": 15,
+                            "race_id": 3045,
+                            "course_id": 10311,
+                            "banner_id": 3045,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 407901,
+                            "url_name": "bsn-sho",
+                            "name_jp": "BSN賞",
+                            "name_en": "BSN Sho",
+                            "name_ko": "BSN상",
+                            "name_tw": "BSN賞",
+                            "list_ura": [
+                                "134",
+                                "134_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1800,
+                            "terrain": 2,
+                            "direction": 2,
+                            "course": 1,
+                            "entries": 15,
+                            "race_id": 4079,
+                            "course_id": 10311,
+                            "banner_id": 4079,
+                            "time": 2,
+                            "season": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 10312,
+                    "length": 2500,
+                    "distance": 4,
+                    "terrain": 2,
+                    "inout": 1,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 1042,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 417
+                        },
+                        {
+                            "id": 1,
+                            "start": 417,
+                            "end": 1667
+                        },
+                        {
+                            "id": 2,
+                            "start": 1667,
+                            "end": 2083
+                        },
+                        {
+                            "id": 3,
+                            "start": 2083,
+                            "end": 2500
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1667,
+                        "location": [
+                            "straight"
+                        ],
+                        "lap": 2
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 380,
+                            "end": 540
+                        },
+                        {
+                            "number": 4,
+                            "start": 540,
+                            "end": 700
+                        },
+                        {
+                            "number": 1,
+                            "start": 1120,
+                            "end": 1280
+                        },
+                        {
+                            "number": 2,
+                            "start": 1280,
+                            "end": 1440
+                        },
+                        {
+                            "number": 3,
+                            "start": 1850,
+                            "end": 2010
+                        },
+                        {
+                            "number": 4,
+                            "start": 2010,
+                            "end": 2170
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 380,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 700,
+                            "end": 1120,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 1440,
+                            "end": 1850,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 2170,
+                            "end": 2500,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1465
+                        },
+                        {
+                            "lap": 2,
+                            "start": 1465,
+                            "end": 2500
+                        }
+                    ],
+                    "overlaps": [
+                        "01",
+                        "02",
+                        "12",
+                        "13"
+                    ],
+                    "races": []
+                }
+            ]
+        },
+        "racetrackDataOld": {
+            "id": "10003",
+            "courses": [
+                {
+                    "id": 10301,
+                    "length": 1000,
+                    "distance": 1,
+                    "terrain": 1,
+                    "inout": 1,
+                    "turn": 4,
+                    "statThresholds": [
+                        3
+                    ],
+                    "positionKeepEnd": 417,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 167
+                        },
+                        {
+                            "id": 1,
+                            "start": 167,
+                            "end": 667
+                        },
+                        {
+                            "id": 2,
+                            "start": 667,
+                            "end": 833
+                        },
+                        {
+                            "id": 3,
+                            "start": 833,
+                            "end": 1000
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 667,
+                        "location": [
+                            "straight",
+                            "final_straight"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 649.9,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 650,
+                            "end": 1000,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1000
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 304201,
+                            "url_name": "ibis-summer-dash",
+                            "name_jp": "アイビスサマーダッシュ",
+                            "name_en": "Ibis Summer Dash",
+                            "name_ko": "이비스 서머 대시",
+                            "name_tw": "朱鷺夏季短途賽",
+                            "list_ura": [
+                                "102",
+                                "102_2"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1000,
+                            "terrain": 1,
+                            "direction": 4,
+                            "course": 1,
+                            "entries": 18,
+                            "race_id": 3042,
+                            "course_id": 10301,
+                            "banner_id": 3042,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 405501,
+                            "url_name": "idaten-stakes",
+                            "name_jp": "韋駄天ステークス",
+                            "name_en": "Idaten Stakes",
+                            "name_ko": "위타천 스테이크스",
+                            "name_tw": "韋馱天錦標賽",
+                            "list_ura": [
+                                "70"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1000,
+                            "terrain": 1,
+                            "direction": 4,
+                            "course": 1,
+                            "entries": 18,
+                            "race_id": 4055,
+                            "course_id": 10301,
+                            "banner_id": 4055,
+                            "time": 2,
+                            "season": 1
+                        },
+                        {
+                            "id": 410101,
+                            "url_name": "lumiere-autumn-dash",
+                            "name_jp": "ルミエールオータムダッシュ",
+                            "name_en": "Lumiere Autumn Dash",
+                            "name_ko": "루미에르 오텀 대시",
+                            "name_tw": "光芒秋季短途賽",
+                            "list_ura": [
+                                "148",
+                                "148_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1000,
+                            "terrain": 1,
+                            "direction": 4,
+                            "course": 1,
+                            "entries": 18,
+                            "race_id": 4101,
+                            "course_id": 10301,
+                            "banner_id": 4101,
+                            "time": 2,
+                            "season": 3
+                        }
+                    ]
+                },
+                {
+                    "id": 10302,
+                    "length": 1200,
+                    "distance": 1,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 500,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 200
+                        },
+                        {
+                            "id": 1,
+                            "start": 200,
+                            "end": 800
+                        },
+                        {
+                            "id": 2,
+                            "start": 800,
+                            "end": 1000
+                        },
+                        {
+                            "id": 3,
+                            "start": 1000,
+                            "end": 1200
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 800,
+                        "location": [
+                            "corner",
+                            "final_corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 430,
+                            "end": 630
+                        },
+                        {
+                            "number": 4,
+                            "start": 640,
+                            "end": 850
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 430,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 850,
+                            "end": 1200,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1200
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 103201,
+                            "url_name": "sprinters-stakes",
+                            "name_jp": "スプリンターズステークス",
+                            "name_en": "Sprinters Stakes",
+                            "name_ko": "스프린터스 스테이크스",
+                            "list_ura": [],
+                            "grade": 100,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1200,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 2,
+                            "entries": 16,
+                            "race_id": 1032,
+                            "course_id": 10302,
+                            "banner_id": 1013,
+                            "time": 2,
+                            "season": 3,
+                            "factor": {
+                                "effect_1": "根幹距離○",
+                                "effect_2": "speed"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": 10303,
+                    "length": 1400,
+                    "distance": 2,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 583,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 233
+                        },
+                        {
+                            "id": 1,
+                            "start": 233,
+                            "end": 933
+                        },
+                        {
+                            "id": 2,
+                            "start": 933,
+                            "end": 1167
+                        },
+                        {
+                            "id": 3,
+                            "start": 1167,
+                            "end": 1400
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 933,
+                        "location": [
+                            "corner",
+                            "final_corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 650,
+                            "end": 850
+                        },
+                        {
+                            "number": 4,
+                            "start": 850,
+                            "end": 1050
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 650,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1050,
+                            "end": 1400,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1400
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 407001,
+                            "url_name": "dahlia-sho",
+                            "name_jp": "ダリア賞",
+                            "name_en": "Dahlia Sho",
+                            "name_ko": "달리아상",
+                            "name_tw": "大麗花賞",
+                            "list_ura": [
+                                "638"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1400,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 2,
+                            "entries": 18,
+                            "race_id": 4070,
+                            "course_id": 10303,
+                            "banner_id": 4070,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 408101,
+                            "url_name": "toki-stakes",
+                            "name_jp": "朱鷺ステークス",
+                            "name_en": "Toki Stakes",
+                            "name_ko": "따오기 스테이크스",
+                            "name_tw": "朱鷺錦標賽",
+                            "list_ura": [
+                                "136",
+                                "136_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1400,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 2,
+                            "entries": 18,
+                            "race_id": 4081,
+                            "course_id": 10303,
+                            "banner_id": 4081,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 409501,
+                            "url_name": "shinetsu-stakes",
+                            "name_jp": "信越ステークス",
+                            "name_en": "Shinetsu Stakes",
+                            "name_ko": "신에츠 스테이크스",
+                            "name_tw": "信越錦標賽",
+                            "list_ura": [
+                                "144",
+                                "144_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1400,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 2,
+                            "entries": 18,
+                            "race_id": 4095,
+                            "course_id": 10303,
+                            "banner_id": 4095,
+                            "time": 2,
+                            "season": 3
+                        }
+                    ]
+                },
+                {
+                    "id": 10304,
+                    "length": 1600,
+                    "distance": 2,
+                    "terrain": 1,
+                    "inout": 3,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 667,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 267
+                        },
+                        {
+                            "id": 1,
+                            "start": 267,
+                            "end": 1067
+                        },
+                        {
+                            "id": 2,
+                            "start": 1067,
+                            "end": 1333
+                        },
+                        {
+                            "id": 3,
+                            "start": 1333,
+                            "end": 1600
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1067,
+                        "location": [
+                            "straight",
+                            "final_straight"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 550,
+                            "end": 750
+                        },
+                        {
+                            "number": 4,
+                            "start": 750,
+                            "end": 950
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 550,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 950,
+                            "end": 1600,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [
+                        {
+                            "start": 250,
+                            "end": 600,
+                            "slope": 10000
+                        },
+                        {
+                            "start": 600,
+                            "end": 900,
+                            "slope": -15000
+                        }
+                    ],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1600
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 304601,
+                            "url_name": "sekiya-kinen",
+                            "name_jp": "関屋記念",
+                            "name_en": "Sekiya Kinen",
+                            "name_ko": "세키야 기념",
+                            "name_tw": "關屋紀念",
+                            "list_ura": [
+                                "105",
+                                "105_2"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1600,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 3046,
+                            "course_id": 10304,
+                            "banner_id": 3046,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 304901,
+                            "url_name": "niigata-junior-stakes",
+                            "name_jp": "新潟ジュニアステークス",
+                            "name_en": "Niigata Junior Stakes",
+                            "name_ko": "니이가타 주니어 스테이크스",
+                            "name_tw": "新潟新手級錦標賽",
+                            "list_ura": [
+                                "629"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1600,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 3049,
+                            "course_id": 10304,
+                            "banner_id": 3049,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 404401,
+                            "url_name": "tanigawadake-stakes",
+                            "name_jp": "谷川岳ステークス",
+                            "name_en": "Tanigawadake Stakes",
+                            "name_ko": "타니가와다케 스테이크스",
+                            "name_tw": "谷川岳錦標賽",
+                            "list_ura": [
+                                "63"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1600,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 4044,
+                            "course_id": 10304,
+                            "banner_id": 4044,
+                            "time": 2,
+                            "season": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 10305,
+                    "length": 1800,
+                    "distance": 2,
+                    "terrain": 1,
+                    "inout": 3,
+                    "turn": 2,
+                    "statThresholds": [
+                        3
+                    ],
+                    "positionKeepEnd": 750,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 300
+                        },
+                        {
+                            "id": 1,
+                            "start": 300,
+                            "end": 1200
+                        },
+                        {
+                            "id": 2,
+                            "start": 1200,
+                            "end": 1500
+                        },
+                        {
+                            "id": 3,
+                            "start": 1500,
+                            "end": 1800
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1200,
+                        "location": [
+                            "straight",
+                            "final_straight"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 750,
+                            "end": 950
+                        },
+                        {
+                            "number": 4,
+                            "start": 950,
+                            "end": 1150
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 750,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1150,
+                            "end": 1800,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [
+                        {
+                            "start": 450,
+                            "end": 800,
+                            "slope": 10000
+                        },
+                        {
+                            "start": 800,
+                            "end": 1100,
+                            "slope": -15000
+                        }
+                    ],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1800
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 412201,
+                            "url_name": "kanetsu-stakes",
+                            "name_jp": "関越ステークス",
+                            "name_en": "Kanetsu Stakes",
+                            "name_ko": "간에츠 스테이크스",
+                            "name_tw": "關越錦標賽",
+                            "list_ura": [
+                                "1061",
+                                "1061_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1800,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 4122,
+                            "course_id": 10305,
+                            "banner_id": 4121,
+                            "time": 2,
+                            "season": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 10306,
+                    "length": 2000,
+                    "distance": 3,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [
+                        2,
+                        3
+                    ],
+                    "positionKeepEnd": 833,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 333
+                        },
+                        {
+                            "id": 1,
+                            "start": 333,
+                            "end": 1333
+                        },
+                        {
+                            "id": 2,
+                            "start": 1333,
+                            "end": 1667
+                        },
+                        {
+                            "id": 3,
+                            "start": 1667,
+                            "end": 2000
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1333,
+                        "location": [
+                            "corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 1,
+                            "start": 420,
+                            "end": 620
+                        },
+                        {
+                            "number": 2,
+                            "start": 620,
+                            "end": 820
+                        },
+                        {
+                            "number": 3,
+                            "start": 1250,
+                            "end": 1450
+                        },
+                        {
+                            "number": 4,
+                            "start": 1450,
+                            "end": 1650
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 420,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 820,
+                            "end": 1250,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1650,
+                            "end": 2000,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1654
+                        },
+                        {
+                            "lap": 2,
+                            "start": 1654,
+                            "end": 2000
+                        }
+                    ],
+                    "overlaps": [
+                        "02",
+                        "03"
+                    ],
+                    "races": []
+                },
+                {
+                    "id": 10307,
+                    "length": 2000,
+                    "distance": 3,
+                    "terrain": 1,
+                    "inout": 3,
+                    "turn": 2,
+                    "statThresholds": [
+                        2,
+                        3
+                    ],
+                    "positionKeepEnd": 833,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 333
+                        },
+                        {
+                            "id": 1,
+                            "start": 333,
+                            "end": 1333
+                        },
+                        {
+                            "id": 2,
+                            "start": 1333,
+                            "end": 1667
+                        },
+                        {
+                            "id": 3,
+                            "start": 1667,
+                            "end": 2000
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1333,
+                        "location": [
+                            "corner",
+                            "final_corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 950,
+                            "end": 1150
+                        },
+                        {
+                            "number": 4,
+                            "start": 1150,
+                            "end": 1350
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 950,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1350,
+                            "end": 2000,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [
+                        {
+                            "start": 650,
+                            "end": 1000,
+                            "slope": 10000
+                        },
+                        {
+                            "start": 1000,
+                            "end": 1300,
+                            "slope": -15000
+                        }
+                    ],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 2000
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 302801,
+                            "url_name": "niigata-daishoten",
+                            "name_jp": "新潟大賞典",
+                            "name_en": "Niigata Daishoten",
+                            "name_ko": "니이가타 대상전",
+                            "name_tw": "新潟大賞典",
+                            "list_ura": [
+                                "34"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 2000,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 3028,
+                            "course_id": 10307,
+                            "banner_id": 3028,
+                            "time": 2,
+                            "season": 1
+                        },
+                        {
+                            "id": 305301,
+                            "url_name": "niigata-kinen",
+                            "name_jp": "新潟記念",
+                            "name_en": "Niigata Kinen",
+                            "name_ko": "니이가타 기념",
+                            "name_tw": "新潟紀念",
+                            "list_ura": [
+                                "109",
+                                "109_2"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 2000,
+                            "terrain": 1,
+                            "direction": 2,
+                            "course": 3,
+                            "entries": 18,
+                            "race_id": 3053,
+                            "course_id": 10307,
+                            "banner_id": 3053,
+                            "time": 2,
+                            "season": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 10308,
+                    "length": 2200,
+                    "distance": 3,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [
+                        1
+                    ],
+                    "positionKeepEnd": 917,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 367
+                        },
+                        {
+                            "id": 1,
+                            "start": 367,
+                            "end": 1467
+                        },
+                        {
+                            "id": 2,
+                            "start": 1467,
+                            "end": 1833
+                        },
+                        {
+                            "id": 3,
+                            "start": 1833,
+                            "end": 2200
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1467,
+                        "location": [
+                            "corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 1,
+                            "start": 650,
+                            "end": 850
+                        },
+                        {
+                            "number": 2,
+                            "start": 850,
+                            "end": 1050
+                        },
+                        {
+                            "number": 3,
+                            "start": 1450,
+                            "end": 1650
+                        },
+                        {
+                            "number": 4,
+                            "start": 1650,
+                            "end": 1850
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 650,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 1050,
+                            "end": 1450,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1850,
+                            "end": 2200,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1833
+                        },
+                        {
+                            "lap": 2,
+                            "start": 1833,
+                            "end": 2200
+                        }
+                    ],
+                    "overlaps": [
+                        "03",
+                        "13"
+                    ],
+                    "races": []
+                },
+                {
+                    "id": 10309,
+                    "length": 2400,
+                    "distance": 3,
+                    "terrain": 1,
+                    "inout": 2,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 1000,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 400
+                        },
+                        {
+                            "id": 1,
+                            "start": 400,
+                            "end": 1600
+                        },
+                        {
+                            "id": 2,
+                            "start": 1600,
+                            "end": 2000
+                        },
+                        {
+                            "id": 3,
+                            "start": 2000,
+                            "end": 2400
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1600,
+                        "location": [
+                            "straight"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 1,
+                            "start": 810,
+                            "end": 1010
+                        },
+                        {
+                            "number": 2,
+                            "start": 1010,
+                            "end": 1210
+                        },
+                        {
+                            "number": 3,
+                            "start": 1650,
+                            "end": 1850
+                        },
+                        {
+                            "number": 4,
+                            "start": 1850,
+                            "end": 2050
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 810,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 1210,
+                            "end": 1650,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 2050,
+                            "end": 2400,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 2030
+                        },
+                        {
+                            "lap": 2,
+                            "start": 2030,
+                            "end": 2400
+                        }
+                    ],
+                    "overlaps": [
+                        "03",
+                        "13"
+                    ],
+                    "races": []
+                },
+                {
+                    "id": 10310,
+                    "length": 1200,
+                    "distance": 1,
+                    "terrain": 2,
+                    "inout": 1,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 500,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 200
+                        },
+                        {
+                            "id": 1,
+                            "start": 200,
+                            "end": 800
+                        },
+                        {
+                            "id": 2,
+                            "start": 800,
+                            "end": 1000
+                        },
+                        {
+                            "id": 3,
+                            "start": 1000,
+                            "end": 1200
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 800,
+                        "location": [
+                            "corner",
+                            "final_corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 600,
+                            "end": 750
+                        },
+                        {
+                            "number": 4,
+                            "start": 750,
+                            "end": 900
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 600,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 900,
+                            "end": 1200,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [
+                        {
+                            "start": 0,
+                            "terrain": 1
+                        },
+                        {
+                            "start": 80,
+                            "terrain": 2
+                        }
+                    ],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1200
+                        }
+                    ],
+                    "overlaps": [],
+                    "races": [
+                        {
+                            "id": 407601,
+                            "url_name": "nst-sho",
+                            "name_jp": "NST賞",
+                            "name_en": "NST Sho",
+                            "name_ko": "NST상",
+                            "name_tw": "NST賞",
+                            "list_ura": [
+                                "133",
+                                "133_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1200,
+                            "terrain": 2,
+                            "direction": 2,
+                            "course": 1,
+                            "entries": 15,
+                            "race_id": 4076,
+                            "course_id": 10310,
+                            "banner_id": 4076,
+                            "time": 2,
+                            "season": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 10311,
+                    "length": 1800,
+                    "distance": 2,
+                    "terrain": 2,
+                    "inout": 1,
+                    "turn": 2,
+                    "statThresholds": [
+                        5
+                    ],
+                    "positionKeepEnd": 750,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 300
+                        },
+                        {
+                            "id": 1,
+                            "start": 300,
+                            "end": 1200
+                        },
+                        {
+                            "id": 2,
+                            "start": 1200,
+                            "end": 1500
+                        },
+                        {
+                            "id": 3,
+                            "start": 1500,
+                            "end": 1800
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1200,
+                        "location": [
+                            "corner"
+                        ],
+                        "lap": 1
+                    },
+                    "corners": [
+                        {
+                            "number": 1,
+                            "start": 400,
+                            "end": 560
+                        },
+                        {
+                            "number": 2,
+                            "start": 560,
+                            "end": 720
+                        },
+                        {
+                            "number": 3,
+                            "start": 1140,
+                            "end": 1300
+                        },
+                        {
+                            "number": 4,
+                            "start": 1300,
+                            "end": 1460
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 400,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 720,
+                            "end": 1140,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 1460,
+                            "end": 1800,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1481
+                        },
+                        {
+                            "lap": 2,
+                            "start": 1481,
+                            "end": 1800
+                        }
+                    ],
+                    "overlaps": [
+                        "02",
+                        "03",
+                        "13"
+                    ],
+                    "races": [
+                        {
+                            "id": 304501,
+                            "url_name": "leopard-stakes",
+                            "name_jp": "レパードステークス",
+                            "name_en": "Leopard Stakes",
+                            "name_ko": "레오파드 스테이크스",
+                            "name_tw": "獵豹錦標賽",
+                            "list_ura": [
+                                "191"
+                            ],
+                            "grade": 300,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1800,
+                            "terrain": 2,
+                            "direction": 2,
+                            "course": 1,
+                            "entries": 15,
+                            "race_id": 3045,
+                            "course_id": 10311,
+                            "banner_id": 3045,
+                            "time": 2,
+                            "season": 2
+                        },
+                        {
+                            "id": 407901,
+                            "url_name": "bsn-sho",
+                            "name_jp": "BSN賞",
+                            "name_en": "BSN Sho",
+                            "name_ko": "BSN상",
+                            "name_tw": "BSN賞",
+                            "list_ura": [
+                                "134",
+                                "134_2"
+                            ],
+                            "grade": 400,
+                            "group": 1,
+                            "track": 10003,
+                            "distance": 1800,
+                            "terrain": 2,
+                            "direction": 2,
+                            "course": 1,
+                            "entries": 15,
+                            "race_id": 4079,
+                            "course_id": 10311,
+                            "banner_id": 4079,
+                            "time": 2,
+                            "season": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 10312,
+                    "length": 2500,
+                    "distance": 4,
+                    "terrain": 2,
+                    "inout": 1,
+                    "turn": 2,
+                    "statThresholds": [],
+                    "positionKeepEnd": 1042,
+                    "phases": [
+                        {
+                            "id": 0,
+                            "start": 0,
+                            "end": 417
+                        },
+                        {
+                            "id": 1,
+                            "start": 417,
+                            "end": 1667
+                        },
+                        {
+                            "id": 2,
+                            "start": 1667,
+                            "end": 2083
+                        },
+                        {
+                            "id": 3,
+                            "start": 2083,
+                            "end": 2500
+                        }
+                    ],
+                    "spurtStart": {
+                        "meters": 1667,
+                        "location": [
+                            "straight"
+                        ],
+                        "lap": 2
+                    },
+                    "corners": [
+                        {
+                            "number": 3,
+                            "start": 380,
+                            "end": 540
+                        },
+                        {
+                            "number": 4,
+                            "start": 540,
+                            "end": 700
+                        },
+                        {
+                            "number": 1,
+                            "start": 1120,
+                            "end": 1280
+                        },
+                        {
+                            "number": 2,
+                            "start": 1280,
+                            "end": 1440
+                        },
+                        {
+                            "number": 3,
+                            "start": 1850,
+                            "end": 2010
+                        },
+                        {
+                            "number": 4,
+                            "start": 2010,
+                            "end": 2170
+                        }
+                    ],
+                    "straights": [
+                        {
+                            "start": 0,
+                            "end": 380,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 700,
+                            "end": 1120,
+                            "frontType": 1
+                        },
+                        {
+                            "start": 1440,
+                            "end": 1850,
+                            "frontType": 2
+                        },
+                        {
+                            "start": 2170,
+                            "end": 2500,
+                            "frontType": 1
+                        }
+                    ],
+                    "slopes": [],
+                    "terrainChanges": [],
+                    "noMansLand": [],
+                    "laps": [
+                        {
+                            "lap": 1,
+                            "start": 0,
+                            "end": 1465
+                        },
+                        {
+                            "lap": 2,
+                            "start": 1465,
+                            "end": 2500
+                        }
+                    ],
+                    "overlaps": [
+                        "01",
+                        "02",
+                        "12",
+                        "13"
+                    ],
+                    "races": []
+                }
+            ]
+        }
+    },
+    "__N_SSG": true
+}

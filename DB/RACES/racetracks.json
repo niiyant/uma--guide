@@ -1,0 +1,2427 @@
+{
+    "pageProps": {
+        "racetrackFilterData": [
+            {
+                "label": "Sapporo 1200 m・Turf",
+                "racetrack": "10001",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Sapporo 1500 m・Turf",
+                "racetrack": "10001",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1500,
+                "inout": "",
+                "corners": 3,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Sapporo 1800 m・Turf",
+                "racetrack": "10001",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Sapporo 2000 m・Turf",
+                "racetrack": "10001",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Sapporo 2600 m・Turf",
+                "racetrack": "10001",
+                "orderOnPage": 4,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2600,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Sapporo 1000 m・Dirt",
+                "racetrack": "10001",
+                "orderOnPage": 5,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1000,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Sapporo 1700 m・Dirt",
+                "racetrack": "10001",
+                "orderOnPage": 6,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1700,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Sapporo 2400 m・Dirt",
+                "racetrack": "10001",
+                "orderOnPage": 7,
+                "terrain": 2,
+                "direction": 1,
+                "length": 2400,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hakodate 1000 m・Turf",
+                "racetrack": "10002",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1000,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hakodate 1200 m・Turf",
+                "racetrack": "10002",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hakodate 1800 m・Turf",
+                "racetrack": "10002",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "uphill"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hakodate 2000 m・Turf",
+                "racetrack": "10002",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "uphill"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hakodate 2600 m・Turf",
+                "racetrack": "10002",
+                "orderOnPage": 4,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2600,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight",
+                    "uphill"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hakodate 1000 m・Dirt",
+                "racetrack": "10002",
+                "orderOnPage": 5,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1000,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hakodate 1700 m・Dirt",
+                "racetrack": "10002",
+                "orderOnPage": 6,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1700,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "uphill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hakodate 2400 m・Dirt",
+                "racetrack": "10002",
+                "orderOnPage": 7,
+                "terrain": 2,
+                "direction": 1,
+                "length": 2400,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Niigata 1000 m・Turf",
+                "racetrack": "10003",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 4,
+                "length": 1000,
+                "inout": "",
+                "corners": 0,
+                "straights": 1,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight",
+                    "final_straight"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Niigata 1200 m・Turf・Inner",
+                "racetrack": "10003",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1200,
+                "inout": "inner",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Niigata 1400 m・Turf・Inner",
+                "racetrack": "10003",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1400,
+                "inout": "inner",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Niigata 1600 m・Turf・Outer",
+                "racetrack": "10003",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1600,
+                "inout": "outer",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight",
+                    "final_straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Niigata 1800 m・Turf・Outer",
+                "racetrack": "10003",
+                "orderOnPage": 4,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1800,
+                "inout": "outer",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight",
+                    "final_straight"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Niigata 2000 m・Turf・Inner",
+                "racetrack": "10003",
+                "orderOnPage": 5,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2000,
+                "inout": "inner",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Niigata 2000 m・Turf・Outer",
+                "racetrack": "10003",
+                "orderOnPage": 6,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2000,
+                "inout": "outer",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Niigata 2200 m・Turf・Inner",
+                "racetrack": "10003",
+                "orderOnPage": 7,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2200,
+                "inout": "inner",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Niigata 2400 m・Turf・Inner",
+                "racetrack": "10003",
+                "orderOnPage": 8,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2400,
+                "inout": "inner",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Niigata 1200 m・Dirt",
+                "racetrack": "10003",
+                "orderOnPage": 9,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Niigata 1800 m・Dirt",
+                "racetrack": "10003",
+                "orderOnPage": 10,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "wisdom"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Niigata 2500 m・Dirt",
+                "racetrack": "10003",
+                "orderOnPage": 11,
+                "terrain": 2,
+                "direction": 2,
+                "length": 2500,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Fukushima 1200 m・Turf",
+                "racetrack": "10004",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Fukushima 1800 m・Turf",
+                "racetrack": "10004",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Fukushima 2000 m・Turf",
+                "racetrack": "10004",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Fukushima 2600 m・Turf",
+                "racetrack": "10004",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2600,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 2,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Fukushima 1150 m・Dirt",
+                "racetrack": "10004",
+                "orderOnPage": 4,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1150,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Fukushima 1700 m・Dirt",
+                "racetrack": "10004",
+                "orderOnPage": 5,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1700,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Fukushima 2400 m・Dirt",
+                "racetrack": "10004",
+                "orderOnPage": 6,
+                "terrain": 2,
+                "direction": 1,
+                "length": 2400,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 1200 m・Turf・Outer",
+                "racetrack": "10005",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1200,
+                "inout": "outer",
+                "corners": 2,
+                "straights": 1,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 1600 m・Turf・Outer",
+                "racetrack": "10005",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1600,
+                "inout": "outer",
+                "corners": 3,
+                "straights": 1,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 1800 m・Turf・Inner",
+                "racetrack": "10005",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1800,
+                "inout": "inner",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 3,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 2000 m・Turf・Inner",
+                "racetrack": "10005",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2000,
+                "inout": "inner",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 3,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 2200 m・Turf・Outer",
+                "racetrack": "10005",
+                "orderOnPage": 4,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2200,
+                "inout": "outer",
+                "corners": 4,
+                "straights": 2,
+                "uphills": 3,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "guts"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 2500 m・Turf・Inner",
+                "racetrack": "10005",
+                "orderOnPage": 5,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2500,
+                "inout": "inner",
+                "corners": 6,
+                "straights": 3,
+                "uphills": 3,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "guts"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 3600 m・Turf・Inner",
+                "racetrack": "10005",
+                "orderOnPage": 6,
+                "terrain": 1,
+                "direction": 1,
+                "length": 3600,
+                "inout": "inner",
+                "corners": 8,
+                "straights": 5,
+                "uphills": 5,
+                "downhills": 2,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 1200 m・Dirt",
+                "racetrack": "10005",
+                "orderOnPage": 7,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 1800 m・Dirt",
+                "racetrack": "10005",
+                "orderOnPage": 8,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 3,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 2400 m・Dirt",
+                "racetrack": "10005",
+                "orderOnPage": 9,
+                "terrain": 2,
+                "direction": 1,
+                "length": 2400,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Nakayama 2500 m・Dirt",
+                "racetrack": "10005",
+                "orderOnPage": 10,
+                "terrain": 2,
+                "direction": 1,
+                "length": 2500,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 1400 m・Turf",
+                "racetrack": "10006",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1400,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight",
+                    "final_straight"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 1600 m・Turf",
+                "racetrack": "10006",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1600,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "guts"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 1800 m・Turf",
+                "racetrack": "10006",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1800,
+                "inout": "",
+                "corners": 3,
+                "straights": 2,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 2000 m・Turf",
+                "racetrack": "10006",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2000,
+                "inout": "",
+                "corners": 3,
+                "straights": 2,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 2300 m・Turf",
+                "racetrack": "10006",
+                "orderOnPage": 4,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2300,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 2400 m・Turf",
+                "racetrack": "10006",
+                "orderOnPage": 5,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2400,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 3,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 2500 m・Turf",
+                "racetrack": "10006",
+                "orderOnPage": 6,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2500,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 3,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 3400 m・Turf",
+                "racetrack": "10006",
+                "orderOnPage": 7,
+                "terrain": 1,
+                "direction": 2,
+                "length": 3400,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 4,
+                "downhills": 2,
+                "spurtStart": [
+                    "straight",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 1300 m・Dirt",
+                "racetrack": "10006",
+                "orderOnPage": 8,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1300,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight",
+                    "final_straight",
+                    "uphill"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 1400 m・Dirt",
+                "racetrack": "10006",
+                "orderOnPage": 9,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1400,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight",
+                    "final_straight",
+                    "uphill"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 1600 m・Dirt",
+                "racetrack": "10006",
+                "orderOnPage": 10,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1600,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "speed",
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 2100 m・Dirt",
+                "racetrack": "10006",
+                "orderOnPage": 11,
+                "terrain": 2,
+                "direction": 2,
+                "length": 2100,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Tokyo 2400 m・Dirt",
+                "racetrack": "10006",
+                "orderOnPage": 12,
+                "terrain": 2,
+                "direction": 2,
+                "length": 2400,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Chukyo 1200 m・Turf",
+                "racetrack": "10007",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight",
+                    "final_straight",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Chukyo 1400 m・Turf",
+                "racetrack": "10007",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1400,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Chukyo 1600 m・Turf",
+                "racetrack": "10007",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 2,
+                "length": 1600,
+                "inout": "",
+                "corners": 3,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Chukyo 2000 m・Turf",
+                "racetrack": "10007",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Chukyo 2200 m・Turf",
+                "racetrack": "10007",
+                "orderOnPage": 4,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2200,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 2,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Chukyo 1200 m・Dirt",
+                "racetrack": "10007",
+                "orderOnPage": 5,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight",
+                    "final_straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Chukyo 1400 m・Dirt",
+                "racetrack": "10007",
+                "orderOnPage": 6,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1400,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Chukyo 1800 m・Dirt",
+                "racetrack": "10007",
+                "orderOnPage": 7,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Chukyo 1900 m・Dirt",
+                "racetrack": "10007",
+                "orderOnPage": 8,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1900,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1200 m・Turf・Inner",
+                "racetrack": "10008",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1200,
+                "inout": "inner",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1400 m・Turf・Inner",
+                "racetrack": "10008",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1400,
+                "inout": "inner",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1400 m・Turf・Outer",
+                "racetrack": "10008",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1400,
+                "inout": "outer",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1600 m・Turf・Inner",
+                "racetrack": "10008",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1600,
+                "inout": "inner",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1600 m・Turf・Outer",
+                "racetrack": "10008",
+                "orderOnPage": 4,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1600,
+                "inout": "outer",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1800 m・Turf・Outer",
+                "racetrack": "10008",
+                "orderOnPage": 5,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1800,
+                "inout": "outer",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 2000 m・Turf・Inner",
+                "racetrack": "10008",
+                "orderOnPage": 6,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2000,
+                "inout": "inner",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 2200 m・Turf・Outer",
+                "racetrack": "10008",
+                "orderOnPage": 7,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2200,
+                "inout": "outer",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 2400 m・Turf・Outer",
+                "racetrack": "10008",
+                "orderOnPage": 8,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2400,
+                "inout": "outer",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 3000 m・Turf・Outer",
+                "racetrack": "10008",
+                "orderOnPage": 9,
+                "terrain": 1,
+                "direction": 1,
+                "length": 3000,
+                "inout": "outer",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 4,
+                "downhills": 2,
+                "spurtStart": [
+                    "straight",
+                    "uphill"
+                ],
+                "statThresholds": [
+                    "power",
+                    "wisdom"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 3200 m・Turf・Outer",
+                "racetrack": "10008",
+                "orderOnPage": 10,
+                "terrain": 1,
+                "direction": 1,
+                "length": 3200,
+                "inout": "outer",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 4,
+                "downhills": 2,
+                "spurtStart": [
+                    "straight",
+                    "uphill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1200 m・Dirt",
+                "racetrack": "10008",
+                "orderOnPage": 11,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1400 m・Dirt",
+                "racetrack": "10008",
+                "orderOnPage": 12,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1400,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1800 m・Dirt",
+                "racetrack": "10008",
+                "orderOnPage": 13,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kyoto 1900 m・Dirt",
+                "racetrack": "10008",
+                "orderOnPage": 14,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1900,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 1200 m・Turf・Inner",
+                "racetrack": "10009",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1200,
+                "inout": "inner",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 1400 m・Turf・Inner",
+                "racetrack": "10009",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1400,
+                "inout": "inner",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 1600 m・Turf・Outer",
+                "racetrack": "10009",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1600,
+                "inout": "outer",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 1800 m・Turf・Outer",
+                "racetrack": "10009",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1800,
+                "inout": "outer",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 2000 m・Turf・Inner",
+                "racetrack": "10009",
+                "orderOnPage": 4,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2000,
+                "inout": "inner",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 2,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "guts"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 2200 m・Turf・Inner",
+                "racetrack": "10009",
+                "orderOnPage": 5,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2200,
+                "inout": "inner",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 2,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 2400 m・Turf・Outer",
+                "racetrack": "10009",
+                "orderOnPage": 6,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2400,
+                "inout": "outer",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 2,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 2600 m・Turf・Outer",
+                "racetrack": "10009",
+                "orderOnPage": 7,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2600,
+                "inout": "outer",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 2,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 3000 m・Turf・Inner",
+                "racetrack": "10009",
+                "orderOnPage": 8,
+                "terrain": 1,
+                "direction": 1,
+                "length": 3000,
+                "inout": "inner",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 2,
+                "downhills": 2,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 1200 m・Dirt",
+                "racetrack": "10009",
+                "orderOnPage": 9,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 1400 m・Dirt",
+                "racetrack": "10009",
+                "orderOnPage": 10,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1400,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 1,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 1800 m・Dirt",
+                "racetrack": "10009",
+                "orderOnPage": 11,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 2000 m・Dirt",
+                "racetrack": "10009",
+                "orderOnPage": 12,
+                "terrain": 2,
+                "direction": 1,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 2,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Hanshin 3200 m・Turf・Outer to Inner",
+                "racetrack": "10009",
+                "orderOnPage": 13,
+                "terrain": 1,
+                "direction": 1,
+                "length": 3200,
+                "inout": "outer to inner",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 2,
+                "downhills": 2,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kokura 1200 m・Turf",
+                "racetrack": "10010",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kokura 1800 m・Turf",
+                "racetrack": "10010",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 1,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kokura 2000 m・Turf",
+                "racetrack": "10010",
+                "orderOnPage": 2,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kokura 2600 m・Turf",
+                "racetrack": "10010",
+                "orderOnPage": 3,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2600,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 1,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kokura 1000 m・Dirt",
+                "racetrack": "10010",
+                "orderOnPage": 4,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1000,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kokura 1700 m・Dirt",
+                "racetrack": "10010",
+                "orderOnPage": 5,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1700,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Kokura 2400 m・Dirt",
+                "racetrack": "10010",
+                "orderOnPage": 6,
+                "terrain": 2,
+                "direction": 1,
+                "length": 2400,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Ooi 1200 m・Dirt",
+                "racetrack": "10101",
+                "orderOnPage": 0,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "guts",
+                    "wisdom"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Ooi 1800 m・Dirt",
+                "racetrack": "10101",
+                "orderOnPage": 1,
+                "terrain": 2,
+                "direction": 1,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Ooi 2000 m・Dirt",
+                "racetrack": "10101",
+                "orderOnPage": 2,
+                "terrain": 2,
+                "direction": 1,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kawasaki 1400 m・Dirt",
+                "racetrack": "10103",
+                "orderOnPage": 0,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1400,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "wisdom"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kawasaki 1600 m・Dirt",
+                "racetrack": "10103",
+                "orderOnPage": 1,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1600,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "wisdom"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Kawasaki 2100 m・Dirt",
+                "racetrack": "10103",
+                "orderOnPage": 2,
+                "terrain": 2,
+                "direction": 2,
+                "length": 2100,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "wisdom"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Funabashi 1000 m・Dirt",
+                "racetrack": "10104",
+                "orderOnPage": 0,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1000,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner",
+                    "final_corner"
+                ],
+                "statThresholds": [
+                    "speed"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Funabashi 1600 m・Dirt",
+                "racetrack": "10104",
+                "orderOnPage": 1,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1600,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Funabashi 1800 m・Dirt",
+                "racetrack": "10104",
+                "orderOnPage": 2,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Funabashi 2400 m・Dirt",
+                "racetrack": "10104",
+                "orderOnPage": 3,
+                "terrain": 2,
+                "direction": 2,
+                "length": 2400,
+                "inout": "",
+                "corners": 6,
+                "straights": 4,
+                "uphills": 0,
+                "downhills": 0,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Morioka 1200 m・Dirt",
+                "racetrack": "10105",
+                "orderOnPage": 0,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1200,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Morioka 1600 m・Dirt",
+                "racetrack": "10105",
+                "orderOnPage": 1,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1600,
+                "inout": "",
+                "corners": 2,
+                "straights": 2,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "wisdom"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Morioka 1800 m・Dirt",
+                "racetrack": "10105",
+                "orderOnPage": 2,
+                "terrain": 2,
+                "direction": 2,
+                "length": 1800,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 2,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "wisdom"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Morioka 2000 m・Dirt",
+                "racetrack": "10105",
+                "orderOnPage": 3,
+                "terrain": 2,
+                "direction": 2,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 3,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Longchamp 2400 m・Turf",
+                "racetrack": "10201",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 1,
+                "length": 2400,
+                "inout": "",
+                "corners": 2,
+                "straights": 3,
+                "uphills": 1,
+                "downhills": 2,
+                "spurtStart": [
+                    "corner",
+                    "final_corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "stamina",
+                    "power"
+                ],
+                "visible": true
+            },
+            {
+                "label": "Santa Anita Park 2000 m・Turf",
+                "racetrack": "10202",
+                "orderOnPage": 0,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 0,
+                "downhills": 1,
+                "spurtStart": [
+                    "straight"
+                ],
+                "statThresholds": [],
+                "visible": true
+            },
+            {
+                "label": "Santa Anita Park 2000 m・Turf",
+                "racetrack": "10202",
+                "orderOnPage": 1,
+                "terrain": 1,
+                "direction": 2,
+                "length": 2000,
+                "inout": "",
+                "corners": 4,
+                "straights": 3,
+                "uphills": 3,
+                "downhills": 1,
+                "spurtStart": [
+                    "corner",
+                    "downhill"
+                ],
+                "statThresholds": [
+                    "stamina"
+                ],
+                "visible": true
+            }
+        ]
+    },
+    "__N_SSG": true
+}
